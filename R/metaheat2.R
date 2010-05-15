@@ -14,7 +14,7 @@ metaheat2<-function (x, Rowv = TRUE, Colv = if (symm) "Rowv" else TRUE,
         "density", "none"), denscol = tracecol, symkey = min(x < 
         0, na.rm = TRUE) || symbreaks, densadj = 0.25, main = NULL, 
     xlab = NULL, ylab = NULL, lmat = NULL, lhei = NULL, lwid = NULL, 
-	legend.names, discret=FALSE,
+	legend.names, discrete=FALSE,
     ...) 
 {
 	require(gplots)
@@ -312,7 +312,7 @@ metaheat2<-function (x, Rowv = TRUE, Colv = if (symm) "Rowv" else TRUE,
     else plot.new()
     if (!is.null(main)) 
         title(main, cex.main = 1.5 * op[["cex.main"]])
-    if (key & !discret) {
+    if (key & !discrete) {
         par(mar = c(5, 4, 2, 1), cex = 0.75)
         tmpbreaks <- breaks
         if (symkey) {
@@ -364,7 +364,7 @@ metaheat2<-function (x, Rowv = TRUE, Colv = if (symm) "Rowv" else TRUE,
         else title("Color Key")
     }
     if (!key) plot.new()
-    if (key & discret)
+    if (key & discrete)
 	{
 	par(mar = c(0, 0, 0, 0), cex = 0.75)
 	plot(1, type="n", axes=F, xlab="", ylab="")
