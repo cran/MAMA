@@ -1,0 +1,8 @@
+export(compute.RQ, conting.tab, cv.filter, dataGEM, dataSOGL, dataZ, entitybuild2, fold.change, gene.list, gene.select.FC, MAP.genes, MAP.HTMLanno, MAPsig1, MAPsig2, make.matrix, MCtest,metaheat,metaheat2, metagene, metalist.to.matrix, patternMatch, patternMatch.strong, patternmatrix, patternToString, plotclinical, plotgene, rank.genes, ratio, sd.filter, test.group.shuffle, Z)
+import(affy, GeneMeta, metaArray, tspair, xtable)
+
+
+
+
+
+
