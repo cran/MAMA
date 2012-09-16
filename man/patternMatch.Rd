@@ -20,12 +20,11 @@ patternMatch(X.discret, unique.pat)
 Yang, X., Bentink, S. a Spang, R. 2005, Detecting Common Gene Expression Patterns in Multiple Cancer Outcome Entities, Biomedical Microdevices, vol.7:3
 }
 \author{
-Codes provided by Xinan Yang <xnyang@seu.edu.cn>
+Code provided by Xinan Yang <xnyang@seu.edu.cn>
 }
 
 \examples{
 
-## The function is currently defined as
 A<-matrix(c(1,0,0,1,0,1,0,1,1,0,1,0,1,0,1), ncol=3, nrow=10)
 uni<-c("011","101","110","111")
 patternMatch(A,uni)

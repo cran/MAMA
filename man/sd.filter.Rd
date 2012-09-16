@@ -13,16 +13,10 @@ sd.filter(data, cutoff = 0.5)
 \value{Expression matrix, probes with SD below cutoff are filtered out.}
 \author{Ivana Ihnatova}
 \examples{
-## The function is currently defined as
-function(data, cutoff=0.5)
-{
-sd<-apply(data,1,sd)
-plot(sort(sd), ylab="Standard deviation")
-abline(h=0.5,col="red")
-data<-data[sd>cutoff,]
-return(data)
-  }
+data(Singhdata)
+data<-Singhdata$esets[[1]][1:1000,]
+data.filtered<-sd.filter(data)
+head(data.filtered)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+
 \keyword{ manip }

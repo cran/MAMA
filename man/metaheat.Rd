@@ -6,7 +6,7 @@
 This function displays a matrix as a heatmap. It is based on function \code{heatmap_2} in the \code{Heatplus} package. 
 }
 \usage{
-metaheat(x, Rowv = NA, Colv = NA, distfun = dist, hclustfun = hclust, na.rm = TRUE, do.dendro = c(TRUE, TRUE), legend = 0, legfrac = 8, col = heat.colors(12), ...)
+metaheat(x, Rowv = NA, Colv = NA, distfun = dist, hclustfun = hclust, na.rm = TRUE, do.dendro = c(TRUE, TRUE), legend = 0, legfrac = 8, col = heat.colors(12), r.cex = NULL, c.cex = NULL, ...)
 }
 
 \arguments{
@@ -20,6 +20,8 @@ metaheat(x, Rowv = NA, Colv = NA, distfun = dist, hclustfun = hclust, na.rm = TR
   \item{legend}{integer between 1 and 4, indicating on which side of the plot the legend should be drawn: 1=bottom, 2=left, 3=above, 4=right }
   \item{legfrac}{fraction of the plot that is taken up by the legend; larger values correspond to smaller legends }
   \item{col}{the color scheme }
+  \item{r.cex}{font size for row labels}
+  \item{c.cex}{font size for column labels}
   \item{\dots}{ extra arguments to \code{image}}
 }
 \author{ Ivana Ihnatova}

@@ -3,39 +3,45 @@
 \alias{fold.change}
 
 \title{
-function to do compute fold change between two groups
+Function to do compute fold change between two groups
 }
 \description{
 Function computes fold change between two groups of log2-transformed data
 }
 \usage{
-fold.change(data, group)
+fold.change(x, varname)
 }
 
 \arguments{
-  \item{data}{
-microarray dataset - ExpressionSet object
-}
-  \item{group}{
-number of column of pData indicating group labels
-}
+  \item{x}{ MetaArray object}
+  \item{varname}{Character String specifying which column of clinical data matrices should be used as class labels. Column of this name must be present in each clinical data matrix.}
 }
 \value{
-vector of fold change
+Data frame of fold changes, each column refer to one study and row to genes.
 }
 \author{
 Ivana Ihnatova
 }
 \examples{
+#data preparation
 data(Singhdata)
-exprs<-as.matrix(Singhdata$esets[[1]])
-rownames(exprs)<-Singhdata$geneNames
-metadata=data.frame(labelDescription=c("Normal/Tumour"), row.names=c("group"))
-pData<-data.frame(group=Singhdata$classes[[1]]+1)
-rownames(pData)<-colnames(exprs)
-phenoData<-new("AnnotatedDataFrame", data=pData,varMetadata=metadata)
-data<-new("ExpressionSet", exprs=exprs, phenoData=phenoData)
-fc<-fold.change(data,1)
+cl1<-as.data.frame(Singhdata$classes[[1]])
+names(cl1)<-"classlab"
+cl2<-as.data.frame(Singhdata$classes[[2]])
+names(cl2)<-"classlab"
+cl3<-as.data.frame(Singhdata$classes[[3]])
+names(cl3)<-"classlab"
+
+rownames(Singhdata$esets[[1]])<-Singhdata$geneNames
+rownames(Singhdata$esets[[2]])<-Singhdata$geneNames
+rownames(Singhdata$esets[[3]])<-Singhdata$geneNames
+
+dataset<-new("MetaArray", GEDM=list(Singhdata$esets[[1]], Singhdata$esets[[2]], Singhdata$esets[[3]]),
+clinical=list(cl1, cl2, cl3), datanames=c("dataset1", "dataset2", "dataset3"))
+
+#fold change
+fch<-fold.change(dataset, "classlab")
+head(fch)
 }
 \keyword{ nonparametric }
 

@@ -4,7 +4,7 @@ plotES<-function(theScores, ScoresFDR, num.studies, legend.names, colors, which)
 
  par(mfrow=c(1,length(which)))
 if (1 %in% which) {
- IDRplot(theScores, Combine = 1:num.studies, colPos = colors[2], 
+ IDRplot(theScores, CombineExp = 1:num.studies, colPos = colors[2], 
  colNeg = colors[3])
 # savePlot("ES2 IDRplot.png", type="png")
 }

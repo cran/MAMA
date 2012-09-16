@@ -31,7 +31,7 @@ Ivana Ihnatova
  \code{\link{metalist.to.matrix}}
 }
 \examples{
-\dontrun{
+
 lists<-list(Method1=c("Gene_A", "Gene_V","Gene_S","Gene_C","Gene_U","Gene_D","Gene_E","Gene_G","Gene_W"), 
   Method2=c("Gene_D","Gene_W","Gene_G","Gene_E","Gene_H","Gene_X"),
   Method3=c("Gene_L","Gene_K","Gene_J","Gene_M","Gene_V","Gene_T","Gene_R","Gene_U"))
@@ -40,6 +40,6 @@ genes<-c("Gene_A", "Gene_V", "Gene_S", "Gene_C", "Gene_U", "Gene_D", "Gene_E", "
  "Gene_R")
 PM<-probs.to.matrix(lists,genes)
 PM
-   }     }
+   }     
 \keyword{ manip }
 

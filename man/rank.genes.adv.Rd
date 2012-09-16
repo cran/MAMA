@@ -26,25 +26,23 @@ Ivana Ihnatova
 \code{\link{meta.test}}, \code{\link{rank.genes}}
 }
 \examples{
+ data(Singhdata)
 
-## The function is currently defined as
-function(testp)
-{
-n<-ncol(testp$test)
-for (i in 1:n)
-{
- if (i==1) {
- r<-rank.genes(testp$test[,i],testp$p[,i])
- } else {
- r<-cbind(r,rank.genes(testp$test[,i],testp$p[,i])) 
- }
-  }
-rownames(r)<-rownames(testp$test)
-colnames(r)<-colnames(testp$p)
-return(r)
-  }
+cl1<-as.data.frame(Singhdata$classes[[1]]+1)
+names(cl1)<-"classlab"
+cl2<-as.data.frame(Singhdata$classes[[2]]+1)
+names(cl2)<-"classlab"
+cl3<-as.data.frame(Singhdata$classes[[3]]+1)
+names(cl3)<-"classlab"
+rownames(Singhdata$esets[[1]])<-Singhdata$geneNames
+rownames(Singhdata$esets[[2]])<-Singhdata$geneNames
+rownames(Singhdata$esets[[3]])<-Singhdata$geneNames
+
+data<-new("MetaArray", GEDM=list(Singhdata$esets[[1]], Singhdata$esets[[2]], Singhdata$esets[[3]]),
+clinical=list(cl1, cl2, cl3), datanames=c("dataset1", "dataset2", "dataset3"))
+
+m<-meta.test(data,"classlab")
+rank.genes.adv(m)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{ manip}
 

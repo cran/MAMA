@@ -17,24 +17,8 @@ compute.RQ(RAN)
 \author{Ivana Ihantova}
 \seealso{\code{\link{rank.genes}},\code{\link{MCtest}}}
 \examples{
-\dontrun{
-data(Singhdata)
-
-#compute T-statistics and P-value
-p1<-apply(Singhdata$esets[[1]],1,function(x) {t=t.test(x~Singhdata$classes[[1]], alternative="two.sided"); return(t$p.value) })
-p2<-apply(Singhdata$esets[[2]],1,function(x) {t=t.test(x~Singhdata$classes[[2]], alternative="two.sided"); return(t$p.value) })
-p3<-apply(Singhdata$esets[[3]],1,function(x) {t=t.test(x~Singhdata$classes[[3]], alternative="two.sided"); return(t$p.value) })
-T1<-apply(Singhdata$esets[[1]],1,function(x) {t=t.test(x~Singhdata$classes[[1]], alternative="two.sided"); return(t$statistic) })
-T2<-apply(Singhdata$esets[[2]],1,function(x) {t=t.test(x~Singhdata$classes[[2]], alternative="two.sided"); return(t$statistic) })
-T3<-apply(Singhdata$esets[[3]],1,function(x) {t=t.test(x~Singhdata$classes[[3]], alternative="two.sided"); return(t$statistic) })
-
-# Rank genes
-rank1<-rank.genes(T1,p1)
-rank2<-rank.genes(T2,p2)
-rank3<-rank.genes(T3,p3)
-# Compute R^star and Q^star 
-RANK<-cbind(rank1,rank2, rank3)
+RANK<-cbind(sample(100), sample(100), sample(100))
 RQ<-compute.RQ(RANK)
 head(RQ)
-}}
+}
 \keyword{ nonparametric}

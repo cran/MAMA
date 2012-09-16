@@ -1,5 +1,5 @@
 metaheat<-function (x, Rowv=NA, Colv=NA, distfun = dist, hclustfun = hclust, 
-     na.rm = TRUE, do.dendro = c(TRUE, TRUE), legend = 0, legfrac = 8, col = heat.colors(12),  ...) 
+     na.rm = TRUE, do.dendro = c(TRUE, TRUE), legend = 0, legfrac = 8, col = heat.colors(12), r.cex = NULL, c.cex = NULL, ...) 
 {
     if (length(di <- dim(x)) != 2 || !is.numeric(x)) 
         stop("`x' must be a numeric matrix")
@@ -7,8 +7,8 @@ metaheat<-function (x, Rowv=NA, Colv=NA, distfun = dist, hclustfun = hclust,
     nc <- di[2]
     if (nr <= 1 || nc <= 1) 
         stop("`x' must have at least 2 rows and 2 columns")
-    r.cex <- -0.1 + 1/log10(nr)
-    c.cex <- -0.4 + 1/log10(nc)
+    if (is.null(r.cex)) r.cex <- -0.1 + 1/log10(nr)
+    if (is.null(c.cex)) c.cex <- -0.4 + 1/log10(nc)
     if (!identical(Rowv, NA)) {
         if (!inherits(Rowv, "dendrogram")) {
             hcr <- hclustfun(distfun(x))
@@ -106,7 +106,7 @@ metaheat<-function (x, Rowv=NA, Colv=NA, distfun = dist, hclustfun = hclust,
             leg.hor = FALSE
         }
     }
-    layout(ll, width = ll.width, height = ll.height, respect = TRUE)
+    layout(ll, widths = ll.width, heights = ll.height, respect = TRUE)
     par(mar = margin)
     image(1:ncol(x), 1:nrow(x), t(x), axes = FALSE, xlab = "", 
         ylab = "", col = col, ...)

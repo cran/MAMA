@@ -14,7 +14,7 @@ metaheat2<-function (x, Rowv = TRUE, Colv = if (symm) "Rowv" else TRUE,
         "density", "none"), denscol = tracecol, symkey = min(x < 
         0, na.rm = TRUE) || symbreaks, densadj = 0.25, main = NULL, 
     xlab = NULL, ylab = NULL, lmat = NULL, lhei = NULL, lwid = NULL, 
-	legend.names, discrete=FALSE,
+	legend.names, discrete=FALSE,  horiz=TRUE,
     ...) 
 {
 	require(gplots)
@@ -368,7 +368,7 @@ metaheat2<-function (x, Rowv = TRUE, Colv = if (symm) "Rowv" else TRUE,
 	{
 	par(mar = c(0, 0, 0, 0), cex = 0.75)
 	plot(1, type="n", axes=F, xlab="", ylab="")
-	legend(x="right", legend=legend.names,fill=col, bty="n", horiz=TRUE)
+	legend(x="right", legend=legend.names,fill=col, bty="n", horiz=horiz)
 	}
     retval$colorTable <- data.frame(low = retval$breaks[-length(retval$breaks)], 
         high = retval$breaks[-1], color = retval$col)

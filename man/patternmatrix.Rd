@@ -23,7 +23,7 @@ Binary matrix with rows corresponding to input strings.}
 Yang, X., Bentink, S. a Spang, R. 2005, Detecting Common Gene Expression Patterns in Multiple Cancer Outcome Entities, Biomedical Microdevices, vol.7:3
 }
 \author{
-Codes provided by Xinan Yang <xnyang@seu.edu.cn>
+Code provided by Xinan Yang <xnyang@seu.edu.cn>
 }
 \examples{
 uni<-c("0101","1100","0011","0100")

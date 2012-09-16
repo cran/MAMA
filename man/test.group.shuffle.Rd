@@ -9,18 +9,15 @@ Function to do compute test statistic iterativelly
 Function computes test statistic with random assignment of group labels to samples in each iteration. It binds results to one matrix. Finaly it multiplies values of test statistics by -1. It saves a file necessary in MAP-Matches method.  
 }
 \usage{
-test.group.shuffle(data, dataname, var=1, minSampleNum = 3, method = "t",B=1000)
+test.group.shuffle(x,  varname, minSampleNum = 3, method = "t",B=1000)
 }
 
 \arguments{
-  \item{data}{
-Gene expresion data of class \code{ExpressionSet}
+  \item{x}{
+MetaArray object
 }
-  \item{dataname}{
-Name of the data set
-}
-  \item{var}{
-Number specifying column of \code{pData} definig groups
+  \item{varname}{
+String indicating the column of clinical data matrices definig groups
 }
 \item{minSampleNum}{Minimal number of samples required for test statistic}
   \item{method}{Type of test as in \code{mt.teststat}}
@@ -39,18 +36,6 @@ Ivana Ihnatova
 \seealso{
  \code{\link{entitybuild2}}
 }
-\examples{
-require(multtest)
-data(Singhdata)
-exprs<-as.matrix(Singhdata$esets[[1]])
-rownames(exprs)<-Singhdata$geneNames
-metadata=data.frame(labelDescription=c("Normal/Tumour"), row.names=c("group"))
-pData<-data.frame(group=as.factor(Singhdata$classes[[1]]+1))
-rownames(pData)<-colnames(exprs)
-phenoData<-new("AnnotatedDataFrame", data=pData,varMetadata=metadata)
-data<-new("ExpressionSet", exprs=exprs, phenoData=phenoData)
 
-dat.shuf<-test.group.shuffle(data=data, dataname="sample", B=10)
-}
 \keyword{ univar }
 

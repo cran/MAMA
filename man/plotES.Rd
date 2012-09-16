@@ -31,34 +31,6 @@ Ivana Ihnatova
 \seealso{
 \code{\link{zScores}}, \code{\link{zScoreFDR}}
 }
-\examples{
 
-## The function is currently defined as
-function(theScores, ScoresFDR, num.studies, legend.names, colors)
-{
-# par(mfrow=c(1,3))
- IDRplot(theScores, Combine = 1:num.studies, colPos = colors[2], 
- colNeg = colors[3])
-# savePlot("ES2 IDRplot.png", type="png")
- FDRwholeSettwo <- sort(ScoresFDR$two.sided[, "FDR"])
- experimentstwo <- list()
- for (j in 1:num.studies) 
- {experimentstwo[[j]] <- sort(ScoresFDR$two.sided[, 
- paste("FDR_Ex_", j, sep = "")])}
- theNewC<-colors[2:length(colors)]
- plot(FDRwholeSettwo, pch = ".", col = colors[1], ylab = "FDR", 
- xlab = "Number of genes")
- for (j in 1:num.studies) points(experimentstwo[[j]], pch = ".", 
- col = theNewC[j])
- legend(x="bottomright", legend=legend.names, 
- col=c(colors[1], theNewC[1:num.studies]), pch=19)
-# savePlot("ES3 FDR.png", type="png")
- CountPlot(ScoresFDR, Score = "FDR", kindof = "two.sided", 
- cols = colors, main = "two sided FDR", 
- xlab = "FDR threshold", ylab = "Number of genes")
- legend(x=0.07,y=600, legend=legend.names, col=colors, pch="*")
-# savePlot("ES4 countplot.png",type="png")
-  }
-}
 
 \keyword{ hplot }

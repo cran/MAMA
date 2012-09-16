@@ -20,7 +20,7 @@ Matrix with same number of rows as input, but with rows converted to strings.
 Yang, X., Bentink, S. a Spang, R. 2005, Detecting Common Gene Expression Patterns in Multiple Cancer Outcome Entities, Biomedical Microdevices, vol.7:3
 }
 \author{
-Codes provided by Xinan Yang <xnyang@seu.edu.cn>
+Code provided by Xinan Yang <xnyang@seu.edu.cn>
 }
 
 \examples{

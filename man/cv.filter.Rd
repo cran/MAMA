@@ -19,18 +19,10 @@ cv.filter(data, cutoff = 0.05)
 
 
 \examples{
-## The function is currently defined as
-function(data, cutoff=0.05)
-{
-cv<-apply(data,1,function(x) sd(x)/mean(x))
-co<-cutoff
-plot(sort(cv), ylab="Coefficient of variation")
-abline(h=co,col="red")
-data<-data[sd>cutoff,]
-return(data)
-  }
+data(Singhdata)
+data<-Singhdata$esets[[1]][1:1000,]
+data.filtered<-cv.filter(data)
+head(data.filtered)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{ manip}
 

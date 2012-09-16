@@ -11,25 +11,6 @@ ratio <- function(X.discret)
   unique.X <- unique(X.discret)
   unique.pat <- patternToString(unique.X)
 
-
-#  num.observed <- table(X.string)[unique.pat]
-#  num.observed <- array(0,length(unique.pat))
-#  hp <- array(1,length(unique.pat))
-#  unique.patternX <- patternmatrix(unique.pat,n.entity)
-#  for ( i in 1:length(unique.pat))
-#  {
-#    comp.called <- which(unique.X[i,] == 1)
-#    subX <- as.matrix(X.discret[,comp.called])
-#    num.observed[i] <- length(which(apply(subX,1,sum)==length(comp.called)))
-#    if ( length(comp.called)==2)
-#    {
-#      hp[i] <- 1-sum(sapply(1:num.observed[i],function(x) dbinomial(x,N,n[comp.called[1]],n[comp.called[2]])))
-#    }
-# }
-
-#  if (length(which( names(num.observed) != unique.pat))>0 ) stop(" number of observed pattern are calculated wrong!")
-
-
   n.pat <- length(unique.pat)
   p.soft <- array(0,n.pat)
   p.strong <- p.soft

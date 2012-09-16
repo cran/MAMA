@@ -10,12 +10,12 @@ Function computes significance of observed number of strong and soft matches by
 randomly assigning group labels in each study.
 }
 \usage{
-MAPsig2(dataset,value.dis, unique.pat, B = 1000)
+MAPsig2(out,value.dis, unique.pat, B = 1000)
 }
 
 \arguments{
-  \item{dataset}{
-vector with datasets names - function loads files \code{paste("random_stat_",dataset[i],".Rdata"}
+  \item{out}{
+output from function \code{test.group.shuffle}
 }
  \item{value.dis}{
 binary matrix from T-statistics

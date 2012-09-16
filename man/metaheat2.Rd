@@ -3,13 +3,13 @@
 \alias{metaheat2}
 
 \title{
-Function to do plot heatmap
+Function to plot heatmap
 }
 \description{
 Function is modification of function \code{heatmap.2} from package gplots
 }
 \usage{
-metaheat2(x, Rowv = TRUE, Colv = if (symm) "Rowv" else TRUE, distfun = dist, hclustfun = hclust, dendrogram = c("both", "row", "column", "none"), symm = FALSE, scale = c("none", "row", "column"), na.rm = TRUE, revC = identical(Colv, "Rowv"), add.expr, breaks, symbreaks = min(x < 0, na.rm = TRUE) || scale != "none", col = "heat.colors", colsep, rowsep, sepcolor = "white", sepwidth = c(0.05, 0.05), cellnote, notecex = 1, notecol = "cyan", na.color = par("bg"), trace = c("column", "row", "both", "none"), tracecol = "cyan", hline = median(breaks), vline = median(breaks), linecol = tracecol, margins = c(5, 5), ColSideColors, RowSideColors, cexRow = 0.2 + 1/log10(nr), cexCol = 0.2 + 1/log10(nc), labRow = NULL, labCol = NULL, key = TRUE, keysize = 1.5, density.info = c("histogram", "density", "none"), denscol = tracecol, symkey = min(x < 0, na.rm = TRUE) || symbreaks, densadj = 0.25, main = NULL, xlab = NULL, ylab = NULL, lmat = NULL, lhei = NULL, lwid = NULL, legend.names, discrete = FALSE, ...)
+metaheat2(x, Rowv = TRUE, Colv = if (symm) "Rowv" else TRUE, distfun = dist, hclustfun = hclust, dendrogram = c("both", "row", "column", "none"), symm = FALSE, scale = c("none", "row", "column"), na.rm = TRUE, revC = identical(Colv, "Rowv"), add.expr, breaks, symbreaks = min(x < 0, na.rm = TRUE) || scale != "none", col = "heat.colors", colsep, rowsep, sepcolor = "white", sepwidth = c(0.05, 0.05), cellnote, notecex = 1, notecol = "cyan", na.color = par("bg"), trace = c("column", "row", "both", "none"), tracecol = "cyan", hline = median(breaks), vline = median(breaks), linecol = tracecol, margins = c(5, 5), ColSideColors, RowSideColors, cexRow = 0.2 + 1/log10(nr), cexCol = 0.2 + 1/log10(nc), labRow = NULL, labCol = NULL, key = TRUE, keysize = 1.5, density.info = c("histogram", "density", "none"), denscol = tracecol, symkey = min(x < 0, na.rm = TRUE) || symbreaks, densadj = 0.25, main = NULL, xlab = NULL, ylab = NULL, lmat = NULL, lhei = NULL, lwid = NULL, legend.names, discrete = FALSE, horiz=TRUE, ...)
 }
 
 \arguments{
@@ -55,8 +55,9 @@ metaheat2(x, Rowv = TRUE, Colv = if (symm) "Rowv" else TRUE, distfun = dist, hcl
 character vector with labels of categories - used in legend
 }
   \item{discrete}{
-Logical, when TRUE boxes filled with the specified colors and names specified in \code{legend.names} are added as legend
+Logical, when \code{TRUE} boxes filled with the specified colors and names specified in \code{legend.names} are added as legend
 }
+\item{horiz}{Logical, when \code{TRUE} the legend is arranged horizontally}
 \item{...}{additional arguments passed on to \code{image}}
 }
 

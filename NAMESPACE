@@ -1,5 +1,25 @@
-export(compute.RQ, conting.tab, cv.filter, dataGEM, dataSOGL, dataZ, entitybuild2, fold.change, gene.list, gene.select.FC, MAP.genes, MAP.HTMLanno, MAPsig1, MAPsig2, make.matrix, MCtest,metaheat,metaheat2, metagene, metalist.to.matrix, patternMatch, patternMatch.strong, patternmatrix, patternToString, plotclinical, plotgene, rank.genes, ratio, sd.filter, test.group.shuffle, Z, plotpattern, T.select, plotES, plotQvsChi, MAPmatrix,rank.genes.adv, meta.test,mergedata,probs.to.matrix, join.DEG, join.results)
-import(affy, GeneMeta, metaArray, tspair, xtable)
+export(colIntersect, commonGenes, compute.RQ, computeAlpha, computeOrdering, conting.tab, cv.filter, entitybuild2, flip, fold.change, gene.list, gene.select.FC, join.DEG, join.results, MAP.genes, MAPmatrix, MAPsig1, MAPsig2, make.matrix, MCtest, mergedata, meta.test,  metaheat,metaheat2, metagene, metalist.to.matrix, patternMatch, patternMatch.strong, patternmatrix, patternToString, performSOGL, plot.SOGLresult, plotgene, plotpattern, prelimScore, prepareData, preparePermutations,  RandomScore, rank.genes, ratio, sd.filter, selectAlpha, selectGenes, selectClass, sigScore, test.group.shuffle, Z, T.select, plotES, plotQvsChi, MAPmatrix,rank.genes.adv,probs.to.matrix,
+
+posterior.mean, mergeExprs2, 
+GEDM, clinical, datanames,
+zScores, zScorePermuted, zScoreFDR, multExpFDR,
+MAP.Matches, TSP, RankProduct, METRADISC, VennMapper, ES.GeneMeta, metaMA,
+clinical.sum
+)
+
+exportClasses(MetaArray)
+exportMethods(plot, print, show, as.list)
+import(tspair, xtable, methods)
+importFrom(graphics, plot)
+importFrom(MergeMaid, mergeExprs, mergeget, AverageDuplicates)
+importFrom(gtools, permute, invalid)
+importFrom(metaArray, Zscore)
+importFrom(genefilter, rowttests)
+importFrom(GeneMeta, CountPlot, dstar, f.Q, IDRplot, mu.tau2, sigmad,tau2.DL, var.tau2)
+importMethodsFrom(GeneMeta, getdF) 
+
+
+
 
 
 

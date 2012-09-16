@@ -22,17 +22,6 @@ Number of studies involved in meta-analysis.
 Ivana Ihnatova
 }
 
-\examples{
-## The function is currently defined as
-function(Q,num.studies)
-{
- chisqq <- qchisq(seq(0, 0.9999, 0.001), df = num.studies-1)
- tmp <- quantile(my.Q, seq(0, 0.9999, 0.001))
- qqplot(chisqq, tmp, ylab = "Quantiles of Sample", pch = "*", 
- xlab = "Quantiles of Chi > square", main = "QQ Plot")
- lines(chisqq, chisqq, lty = "dotted", col = "red")
-  }
-}
 
 \keyword{ hplot }
 
