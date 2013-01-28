@@ -34,7 +34,7 @@ Ivana Ihnatova
 }
 \examples{
 data(ColonData)
-es<- ES.GeneMeta(ColonData, "satelite", nperm = 10)
+es<- ES.GeneMeta(ColonData, "MSI", nperm = 10)
 }
 \keyword{ univar }
 

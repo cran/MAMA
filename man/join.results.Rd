@@ -7,7 +7,7 @@ Function to join results from meta-analysis to one list
 Function joins results from meta-analysis to one list. It uses predefined types of results and transform some of them. 
 }
 \usage{
-join.results(..., type, genenames)
+join.results(..., type = NULL , genenames = NULL)
 }
 
 \arguments{
@@ -15,10 +15,10 @@ join.results(..., type, genenames)
 Outputs from different function for methods of meta-analysis of microarray
 }
   \item{type}{
-a numeric vector idicating from which function the output is, \code{k}th element in \code{type} corresponds to \code{k}th element of \code{\dots}
+a numeric vector idicating from which function the output is, \code{k}th element in \code{type} corresponds to \code{k}th element of \code{\dots}. It can be \code{NULL}, if the wrapper functions were used.
 }
   \item{genenames}{
-a character vector - names of all genes (or probe ID) included in meta-analysis = rownames of gene expression data matrix
+a character vector - names of all genes (or probe ID) included in meta-analysis = rownames of gene expression data matrix. It can be \code{NULL}, if the wrapper functions were used. 
 }
 }
 \details{

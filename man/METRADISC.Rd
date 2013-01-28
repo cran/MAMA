@@ -31,6 +31,6 @@ Ivana Ihnatova
 }
 \examples{
 data(ColonData)
-m <- METRADISC(ColonData, "satelite", 5)
+m <- METRADISC(ColonData, "MSI", 5)
 }
 \keyword{ univar }

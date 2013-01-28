@@ -3,13 +3,13 @@ export(colIntersect, commonGenes, compute.RQ, computeAlpha, computeOrdering, con
 posterior.mean, mergeExprs2, 
 GEDM, clinical, datanames,
 zScores, zScorePermuted, zScoreFDR, multExpFDR,
-MAP.Matches, TSP, RankProduct, METRADISC, VennMapper, ES.GeneMeta, metaMA,
+MAP.Matches, RankProduct, METRADISC, VennMapper, ES.GeneMeta, metaMA,
 clinical.sum
 )
 
 exportClasses(MetaArray)
-exportMethods(plot, print, show, as.list)
-import(tspair, xtable, methods)
+exportMethods(plot, print, show, as.list, "GEDM<-", "clinical<-", "datanames<-")
+import(xtable, methods)
 importFrom(graphics, plot)
 importFrom(MergeMaid, mergeExprs, mergeget, AverageDuplicates)
 importFrom(gtools, permute, invalid)

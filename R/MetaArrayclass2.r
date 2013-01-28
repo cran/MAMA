@@ -13,10 +13,14 @@ for (i in 1:length(x@GEDM))
 {
 cat("Dataset", x@datanames[i], " containing" , dim(x@GEDM[[i]])[1], "probes and ", dim(x@GEDM[[i]])[2], "samples. \n" )
 cat("Sumarization of samples: \n")
-print(table(x@clinical[[i]]))
+cl<-x@clinical[[i]]
+for (j in 1:ncol(cl)) {
+cat(colnames(cl)[j],"\n")
+cat( paste(rep("-",nchar(colnames(cl)[j])), collapse=""),"\n")
+print(summary(cl[,j])) 
+}
 cat("\n")
 }
-return()
 })
 
 setMethod("show","MetaArray", function(object) {
@@ -24,10 +28,14 @@ for (i in 1:length(object@GEDM))
 {
 cat("Dataset", object@datanames[i], " containing" , dim(object@GEDM[[i]])[1], "probes and ", dim(object@GEDM[[i]])[2], "samples. \n" )
 cat("Sumarization of samples: \n")
-print(table(object@clinical[[i]]))
+cl<-object@clinical[[i]]
+for (j in 1:ncol(cl)) {
+cat(colnames(cl)[j],"\n")
+cat( paste(rep("-",nchar(colnames(cl)[j])), collapse=""),"\n")
+print(summary(cl[,j])) 
+}
 cat("\n")
 }
-return()
 })
 
  setGeneric("as.list")
@@ -41,9 +49,28 @@ return(l)
 }
 )
 
-clinical <- function(x) {return(x@clinical)}
-GEDM <- function(x) {return(x@GEDM)}
-datanames <-function(x) {return(x@datanames)}
+
+clinical <- function(object) {return(object@clinical)} 
+GEDM <- function(object) {return(object@GEDM)}      
+datanames <-function(object) {return(object@datanames)}  
+
+ setGeneric("GEDM<-", function(object, value) standardGeneric("GEDM<-"))
+ setReplaceMethod("GEDM", "MetaArray", function(object, value) {
+ object@GEDM <- value
+ object
+ })
+ setGeneric("clinical<-", function(object, value) standardGeneric("clinical<-"))
+ setReplaceMethod("clinical", "MetaArray", function(object, value) {
+ object@clinical <- value
+ object
+ })
+
+ setGeneric("datanames<-", function(object, value) standardGeneric("datanames<-"))
+ setReplaceMethod("datanames", "MetaArray", function(object, value) {
+ object@datanames <- value
+ object
+ })
+
 
 
 
@@ -55,13 +82,9 @@ N<-length(CL)
 TT<-clinical.sum(x)$absolute
 
 totalSamples<-sum(sapply(CL,nrow))
-param<-lapply(CL,colnames)
-param<-unique(unlist(param))
+param<-names(TT)
 Nparam<-length(param)
-
 Nchar=max(nchar(datanames(x)))
-
-col<-c("red","blue", "green")
 
 grid.newpage()
 vplay<-grid.layout(N+2,Nparam+2, 
@@ -88,7 +111,7 @@ for (j in 1:Nparam){
 if (!con[j])
 {
 
-  for (i in 1:(N))
+  for (i in 1:N)
   {
   pushViewport(viewport(layout.pos.col=2+j, layout.pos.row=i))
   if (param[j] %in% colnames(CL[[i]]) ){
@@ -106,7 +129,7 @@ for (i in 1:(N))
   {
    if (param[j] %in% colnames(CL[[i]])){
     b<-TT[[param[j]]][i,c("Min.", "1st Qu.", "Median", "3rd Qu.", "Max.")]
-    bb<-TT[[param[j]]][N,c("Min.", "1st Qu.", "Median", "3rd Qu.", "Max.")]
+    bb<-TT[[param[j]]][N+1,c("Min.", "1st Qu.", "Median", "3rd Qu.", "Max.")]
     pushViewport(viewport(layout.pos.col=2+j, layout.pos.row=i,xscale=c(bb[1]-10,bb[5]+10)))
      grid.lines(x=unit(c(b[1], b[5]),"native"), y=unit(c(0.5, 0.5),"npc"))
      grid.rect(x=unit(b[2], "native"), width=unit(b[4]-b[2],"native"), height=unit(0.6, "npc"), 

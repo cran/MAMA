@@ -270,6 +270,8 @@ colIntersect <- function(x)
 # Wraper function
 performSOGL <- function(data, varname, test, B, which=c("score", "empirical"), min.weight = 1e-05, two.sided = TRUE, percent = 0.95){
 cat("Processing data...")
+if (!all(sapply(1:(length(GEDM(data))-1), function(x) all(rownames(GEDM(data)[[x]])==rownames(GEDM(data)[[x+1]]))))) stop("The gene expression data matrices have not equal rownames")
+all.genes<-rownames(GEDM(data)[[1]])
 ordering<- computeOrdering(data, varname, test)
 A<-computeAlpha(ngenes=nrow(GEDM(data)[[1]]))
 cat("Tuning alpha..")
@@ -288,9 +290,7 @@ genes<-selectGenes(ordering, a$alpha, percent)
 
 alph.pos<-match(a$alpha, A)
 res <- list(ordering = ordering, alpha.selected = a$alpha, alpha.considered = A, pAUC=a$pAUC, 
-	random = sampling$random[alph.pos,], subsample = sampling$subsample[alph.pos,], emp.ci = sampling$empirical.ci, 
-  common.genes = cg,
-score = score, significance = sig, genes = genes)
+	random = sampling$random[alph.pos,], subsample = sampling$subsample[alph.pos,], emp.ci = sampling$empirical.ci, common.genes = cg, score = score, significance = sig, genes = genes, all.genes=all.genes)
 class(res)<-"SOGLresult"
 return(res)
 }

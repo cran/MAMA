@@ -1,0 +1,17 @@
+\contentsline {chapter}{\numberline {1}Introduction}{2}
+\contentsline {chapter}{\numberline {2}Methods that combine p-values}{4}
+\contentsline {chapter}{\numberline {3}Methods that combine effect sizes}{6}
+\contentsline {paragraph}{Data preparation}{7}
+\contentsline {paragraph}{Detecting differentially expressed genes}{7}
+\contentsline {paragraph}{Wrapper function}{8}
+\contentsline {paragraph}{Data preparation}{8}
+\contentsline {paragraph}{Detecting differentially expressed genes}{8}
+\contentsline {paragraph}{Results}{13}
+\contentsline {paragraph}{Wrapper function}{15}
+\contentsline {chapter}{\numberline {4}Similarity of Ordered Gene Lists (SOGL)}{16}
+\contentsline {chapter}{\numberline {5}RankProduct}{20}
+\contentsline {chapter}{\numberline {6}Z-statistic - posterior mean differential expression}{25}
+\contentsline {chapter}{\numberline {7}VennMapping}{28}
+\contentsline {chapter}{\numberline {8}MAP-Matches}{31}
+\contentsline {chapter}{\numberline {9}METRADISC}{37}
+\contentsline {part}{I\hspace {1em}Results combination}{41}

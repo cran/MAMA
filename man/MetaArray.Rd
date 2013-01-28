@@ -7,9 +7,9 @@
 \alias{print,MetaArray-method}
 \alias{show,MetaArray-method}
 \alias{as.list,MetaArray-method}
-\alias{GEDM}
-\alias{clinical}
-\alias{datanames}
+%\alias{GEDM<-, MetaArray-method}
+%\alias{clinical<-MetaArray-method}
+%\alias{datanames<-MetaArray-method}
 
 \title{Class "MetaArray" ~~~ }
 \description{	A class created for meta-analysis of microarray}
@@ -27,12 +27,10 @@ Objects can be created by calls of the form \code{new("MetaArray", ...)}.
 \section{Methods}{
   \describe{
     \item{plot}{\code{signature(x = "MetaArray", y = "missing")}: draws distribution of clinical variables of several datasets. Boxplot is drawn for numerical variables and barplot for categorical ones. }
-    \item{print}{\code{signature(x = "MetaArray")}: prints the number of samples and genes in each dataset, followed by contingency table of clinical characteristics of the samples }
+    \item{print}{\code{signature(x = "MetaArray")}: prints the number of samples and genes in each dataset, followed by summarization of each clinical characteristic of the samples }
     \item{show}{Same as \code{print}}
-    \item{as.list}{Function transforms a MetaArray object into a list, in which each slot is again a list of three slots: gene expression data matrix \code{expression}, clinical data \code{clinical}, name of the dataset \code{dataname}}
-    \item{GEDM}{Extracts the \code{expression} slot}
-    \item{clinical}{Extracts the \code{clinical} slot}
-    \item{datanames}{Extracts the \code{datanames} slot}
+    \item{as.list}{Function transforms a MetaArray object into a list, in which each slot is again a list of three slots: gene expression data matrix \code{GEDM}, clinical data \code{clinical}, name of the dataset \code{dataname}}
+
 	 }
 	 
 }

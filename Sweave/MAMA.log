@@ -1,0 +1,385 @@
+This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2012.11.29)  25 MAR 2013 16:22
+entering extended mode
+**G:/MAMA/Sweave/MAMA.tex
+(G:/MAMA/Sweave/MAMA.tex
+LaTeX2e <2009/09/24>
+Loading CZ hyphenation patterns: Pavel Sevecek, v3, 1995
+Loading SK hyphenation patterns: Jana Chlebikova, 1992
+(D:\MiKTeX\tex\latex\base\report.cls
+Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
+(D:\MiKTeX\tex\latex\base\size10.clo
+File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) (D:\MiKTeX\tex\latex\ltxmisc\url.sty
+\Urlmuskip=\muskip10
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+)
+(G:\MAMA\Sweave\Sweave.sty
+Package: Sweave 
+ (D:\MiKTeX\tex\latex\base\ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(D:\MiKTeX\tex\latex\graphics\graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(D:\MiKTeX\tex\latex\graphics\keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks16
+)
+(D:\MiKTeX\tex\latex\graphics\graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(D:\MiKTeX\tex\latex\graphics\trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(D:\MiKTeX\tex\latex\00miktex\graphics.cfg
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+(D:\MiKTeX\tex\latex\pdftex-def\pdftex.def
+File: pdftex.def 2009/08/25 v0.04m Graphics/color for pdfTeX
+\Gread@gobject=\count88
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+) (G:\MAMA\Sweave\fancyvrb.sty
+Package: fancyvrb 1996/10/05
+
+Style option: `fancyvrb' v2.0-beta, with DG/SPQR fixes <1996/10/05> (tvz)
+\FV@CodeLineNo=\count89
+\FV@InFile=\read1
+\FV@TabBox=\box26
+\c@FancyVerbLine=\count90
+\FV@OutFile=\write3
+No file fancyvrb.rc.
+) (G:\MAMA\Sweave\upquote.sty
+Package: upquote 2003/08/11 v1.1 Covington's upright-quote modification to verb
+atim and verb
+ (D:\MiKTeX\tex\latex\base\textcomp.sty
+Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
+Package textcomp Info: Sub-encoding information:
+(textcomp)               5 = only ISO-Adobe without \textcurrency
+(textcomp)               4 = 5 + \texteuro
+(textcomp)               3 = 4 + \textohm
+(textcomp)               2 = 3 + \textestimated + \textcurrency
+(textcomp)               1 = TS1 - \textcircled - \t
+(textcomp)               0 = TS1 (full)
+(textcomp)             Font families with sub-encoding setting implement
+(textcomp)             only a restricted character set as indicated.
+(textcomp)             Family '?' is the default used for unknown fonts.
+(textcomp)             See the documentation for details.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 71.
+
+(D:\MiKTeX\tex\latex\base\ts1enc.def
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+)
+LaTeX Info: Redefining \oldstylenums on input line 266.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 281.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 282.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 283.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 284.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 285.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 286.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 287.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 288.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 289.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 290.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 291.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 292.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 293.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 294.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 295.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 296.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 297.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 298.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 299.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 300.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 301.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 302.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 303.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 304.
+
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 305.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 306.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 307.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 308.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 309.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 310.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 311.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 312.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 313.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 314.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 315.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 316.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 317.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 318.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 319.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 320.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 321.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 322.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 323.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 324.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 325.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 326.
+)) (D:\MiKTeX\tex\latex\base\fontenc.sty
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+
+(D:\MiKTeX\tex\latex\base\t1enc.def
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+)) (D:\MiKTeX\tex\latex\ae\ae.sty
+Package: ae 2001/02/12 1.3 Almost European Computer Modern
+
+(D:\MiKTeX\tex\latex\base\fontenc.sty
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+ (D:\MiKTeX\tex\latex\base\t1enc.def
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+)
+LaTeX Font Info:    Try loading font information for T1+aer on input line 100.
+
+(D:\MiKTeX\tex\latex\ae\t1aer.fd
+File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
+)))) (G:\MAMA\Sweave\MAMA.aux)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for IL2/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 12.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 12.
+
+(D:\MiKTeX\tex\latex\base\ts1cmr.fd
+File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 12.
+ (D:\MiKTeX\tex\context\base\supp-pdf.tex
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count91
+\scratchdimen=\dimen105
+\scratchbox=\box27
+\nofMPsegments=\count92
+\nofMParguments=\count93
+\everyMPshowfont=\toks17
+\MPscratchCnt=\count94
+\MPscratchDim=\dimen106
+\MPnumerator=\count95
+\everyMPtoPDFconversion=\toks18
+)
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 14.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 14.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 14.
+ [1
+
+{C:/Users/user/AppData/Local/MiKTeX/2.8/pdftex/config/pdftex.map}]
+(G:\MAMA\Sweave\MAMA.toc)
+\tf@toc=\write4
+ [1
+
+]
+Chapter 1.
+LaTeX Font Info:    Try loading font information for T1+aett on input line 24.
+(D:\MiKTeX\tex\latex\ae\t1aett.fd
+File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
+)
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 24.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 24.
+ [2
+
+] [3]
+Chapter 2.
+[4
+
+]
+Chapter 3.
+
+Overfull \hbox (9.32431pt too wide) in paragraph at lines 116--117
+[]\T1/aer/m/n/10 Decision be-tween random-effect model (REM) and fixed-effect m
+odel (FEM). 
+ []
+
+[5
+
+]
+Overfull \hbox (17.09836pt too wide) in paragraph at lines 136--138
+\T1/aer/m/n/10 Function (\T1/aett/m/n/10 ES.GeneMeta\T1/aer/m/n/10 ) wrapes dat
+a prepa-ra-tion and func-tions \T1/aett/m/n/10 zS-core\T1/aer/m/n/10 , \T1/aett
+/m/n/10 ScoresFDR\T1/aer/m/n/10 . 
+ []
+
+LaTeX Font Info:    Try loading font information for TS1+aer on input line 145.
+
+LaTeX Font Info:    No file TS1aer.fd. on input line 145.
+
+LaTeX Font Warning: Font shape `TS1/aer/m/n' undefined
+(Font)              using `TS1/cmr/m/n' instead
+(Font)              for symbol `textbullet' on input line 145.
+
+[6] [7]
+Chapter 4.
+[8
+
+] <MAMA-006.pdf, id=44, 433.62pt x 433.62pt>
+File: MAMA-006.pdf Graphic file (type pdf)
+ <use MAMA-006.pdf> [9]
+<MAMA-007.pdf, id=48, 433.62pt x 433.62pt>
+File: MAMA-007.pdf Graphic file (type pdf)
+ <use MAMA-007.pdf> [10 <G:/MAMA/Sweave/MAMA-006.pdf>] <MAMA-008.pdf, id=58, 43
+3.62pt x 433.62pt>
+File: MAMA-008.pdf Graphic file (type pdf)
+
+<use MAMA-008.pdf> [11 <G:/MAMA/Sweave/MAMA-007.pdf>] [12 <G:/MAMA/Sweave/MAMA-
+008.pdf>]
+Chapter 5.
+[13
+
+] [14]
+Chapter 6.
+[15
+
+] [16] [17]
+Chapter 7.
+[18
+
+] [19]
+Chapter 8.
+[20
+
+] [21]
+Chapter 9.
+[22
+
+] [23]
+Chapter 10.
+[24
+
+] <MAMA-018.pdf, id=118, 433.62pt x 433.62pt>
+File: MAMA-018.pdf Graphic file (type pdf)
+ <use MAMA-018.pdf>
+<MAMA-019.pdf, id=119, 433.62pt x 650.43pt>
+File: MAMA-019.pdf Graphic file (type pdf)
+ <use MAMA-019.pdf> [25 <G:/MAMA/Sweave/MAMA-018.pdf>] <MAMA-021.pdf, id=128, 4
+33.62pt x 433.62pt>
+File: MAMA-021.pdf Graphic file (type pdf)
+
+<use MAMA-021.pdf> [26 <G:/MAMA/Sweave/MAMA-019.pdf>]
+<MAMA-023.pdf, id=137, 433.62pt x 433.62pt>
+File: MAMA-023.pdf Graphic file (type pdf)
+ <use MAMA-023.pdf> [27 <G:/MAMA/Sweave/MAMA-021.pdf>] [28 <G:/MAMA/Sweave/MAMA
+-023.pdf>] [29]
+<MAMA-026.pdf, id=157, 433.62pt x 433.62pt>
+File: MAMA-026.pdf Graphic file (type pdf)
+ <use MAMA-026.pdf> [30 <G:/MAMA/Sweave/MAMA-026.pdf>] [31]
+Underfull \hbox (badness 10000) in paragraph at lines 719--720
+[]\T1/aer/m/n/10 Falcon, S., Mor-gan, M. and Gen-tle-man, R. 2007, \T1/aer/m/it
+/10 An in-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 719--720
+\T1/aer/m/it/10 tro-duc-tion to Biocin-duc-tor's Ex-pres-sion-Set class\T1/aer/
+m/n/10 , avail-able at:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 719--720
+\T1/aer/m/n/10 http://www.bioconductor.org/packages/2.2/bioc/vignettes/Biobase/
+inst
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 726--727
+[]\T1/aer/m/n/10 Gentleman, R., Rauschhaupt, M., Hu-ber, W., a Lusa L.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 726--727
+\T1/aer/m/n/10 2008, \T1/aer/m/it/10 Meta-analysis for Mi-croar-ray Ex-per-i-me
+nts\T1/aer/m/n/10 , avail-able at:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 726--727
+\T1/aer/m/n/10 http://www.bioconductor.org/packages/2.3/bioc/vignettes/GeneMeta
+
+ []
+
+[32
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 734--735
+[]\T1/aer/m/n/10 Ghosh, D. a Choi, H. 2009, \T1/aer/m/it/10 metaAr-ray pack-age
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 734--735
+\T1/aer/m/it/10 for meta-analysis of mi-croar-ray data\T1/aer/m/n/10 , avail-ab
+le at:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 734--735
+\T1/aer/m/n/10 http://bioconductor.org/packages/2.5/bioc/vignettes/metaArray/in
+st/
+ []
+
+[33] (G:\MAMA\Sweave\MAMA.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 2269 strings out of 495209
+ 28941 string characters out of 3181635
+ 76970 words of memory out of 3000000
+ 5511 multiletter control sequences out of 15000+200000
+ 38834 words of font info for 78 fonts, out of 3000000 for 9000
+ 24 hyphenation exceptions out of 8191
+ 35i,6n,21p,1287b,283s stack positions out of 5000i,500n,10000p,200000b,50000s
+ <C:\Users\user\AppData\Local\MiKTeX\2.8\fonts\pk\ljfour\jknappen\ec\dpi600\t
+crm1000.pk><D:/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><D:/MiKTeX/font
+s/type1/public/amsfonts/cm/cmbx12.pfb><D:/MiKTeX/fonts/type1/public/amsfonts/cm
+/cmex10.pfb><D:/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><D:/MiKTeX/fon
+ts/type1/public/amsfonts/cm/cmmi5.pfb><D:/MiKTeX/fonts/type1/public/amsfonts/cm
+/cmmi7.pfb><D:/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/MiKTeX/fonts
+/type1/public/amsfonts/cm/cmr12.pfb><D:/MiKTeX/fonts/type1/public/amsfonts/cm/c
+mr17.pfb><D:/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><D:/MiKTeX/fonts/ty
+pe1/public/amsfonts/cm/cmr7.pfb><D:/MiKTeX/fonts/type1/public/amsfonts/cm/cmsl1
+0.pfb><D:/MiKTeX/fonts/type1/public/amsfonts/cm/cmsltt10.pfb><D:/MiKTeX/fonts/t
+ype1/public/amsfonts/cm/cmsy10.pfb><D:/MiKTeX/fonts/type1/public/amsfonts/cm/cm
+sy7.pfb><D:/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><D:/MiKTeX/fonts/t
+ype1/public/amsfonts/cm/cmtt10.pfb>
+Output written on MAMA.pdf (34 pages, 361284 bytes).
+PDF statistics:
+ 234 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
+

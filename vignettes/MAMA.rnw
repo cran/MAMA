@@ -1,10 +1,10 @@
-%\VignetteDepends{MAMA,methods, metaArray, tspair, xtable, metaMA, gtools, gplots, multtest, RankProd, MergeMaid, GeneMeta} 
+%\VignetteDepends{MAMA,methods, metaArray,  xtable, metaMA, gtools, gplots, multtest, RankProd, MergeMaid, GeneMeta} 
 % \VignetteIndexEntry{An R Package for Meta-Analysis of Microarray}
 % \VignetteKeywords{Microarray}
 % \VignettePackage{MAMA}
 
 \documentclass[a4paper]{report}
-
+\usepackage{url}
 \title{MAMA: an R package for Meta-Analysis of MicroArray}
 \author{Ivana Ihnatova}
 
@@ -20,9 +20,8 @@
 
 
 %There are three main objectives in analysis of microarray: class comparison (finding of differentially expressed genes), class prediction (prognostic prediction) and class discovery (clustering or unsupervised analyses). 
-This paper provides a user guide to R-package MAMA. The package implements nine different methods that have been proposed in meta-analysis of microarray and are designed to identify differentially expressed genes.\par
-
-
+This paper provides a user guide to the R-package MAMA. The package implements eight different methods that are designed to identify differentially expressed genes in meta-analysis of microarrays. A more comprehensive vignette can be downloaded from: \url{http://is.muni.cz/www/184415/MAMA_full.pdf} \par
+                                                                              
 In here, we will demonstrate the features of the package with an example of meta-analysis in cancer microarray data, the comparison of expression profiles in MSI (microsatelite instable) and MSS (microsatelite stable) colon cancer. We gathered three microarray data from public databases. The data are stored in {\ttfamily ColonData}. It is an object of new S4 class - {\ttfamily MetaArray}, in which separate slots for gene expression data matrices (expression profiles), clinical sample characteristics and datanames were defined. \par
 We start with package and sample data loading. 
 <<lib>>=
@@ -33,45 +32,24 @@ data(ColonData)
 ColonData
 @
 The original data sets have been preprocessed and subsampled in order to reduce the computational complexity of the meta-analysis. All data sets have been normalized and are in $log_2$-scale. The corresponding sample sizes for the three datasets can be seen in outprint above. The same set of 500 gene has been selected in each dataset.\par 
-A different method is described in each of the parts below and the descriptions are independed from each other, so you can directly move to the method of your interest. Meta-analysis usually consist of three steps: Data preparation, Detection of differentially expressed genes and Extraction and visualization of results. There is also a wrapper function for each method that outperforms all necessary step as one-line command.\par
-We select the significant genes at significance level of 0.05 in all methods. 
+A different method is described in each of the parts below and the descriptions are independed from each other, so you can directly move to the method of your interest. %Meta-analysis usually consist of three steps: Data preparation, Detection of differentially expressed genes and Extraction and visualization of results. 
+A wrapper function for each method outperforms all necessary steps as one-line command.\par
+We select the genes at significance level of 0.05 in all methods. 
  
 \chapter{Methods that combine p-values}
-%\addcontentsline{toc}{part}{Methods that combine p-values}
+%\addcontentsline{toc}{chapter}{Methods that combine p-values}
 \section*{Introduction}
 %\addcontentsline{toc}{section}{Introduction}
 In this part we will focus on methods that combine p-values \cite{Marot}, \cite{Rhodes}. These methods are inspired by Fisher's S-statistic published in 1925 \cite{Fisher25}. \par
-Two measurements of significance of change in gene expression are the most common. These are: value of test-statistic and p-value. In here the p-values from study-specific analysis are combined into one p-value in sense of sum of logs. Methods differ in test statistic used to calculate the study-specific p-values. 
+Two measurements of significance of change in gene expression are the most common. These are: value of test-statistic and p-value. In here, the p-values from study-specific analysis are combined into one p-value in sense of sum of logs. Methods differ in test statistic used to calculate the study-specific p-values. 
 \section*{Usage}
 %\addcontentsline{toc}{section}{Usage}
-\subsection*{Data preparation}
-One needs a list of gene expression data matrices {\ttfamily esets} and a list of vectors with class labels {\ttfamily classes}. The former is {\ttfamily GEDM} slot of MetaArray object, the latter can be obtained by function {\ttfamily selectClass}. 
-<<datap2>>=
-esets <- GEDM(ColonData)
-classes <- selectClass(ColonData, "satelite", "factor")
-@
-\subsection*{Detecting differentially expressed genes}
-Functions \verb!pvalcombination! and \verb!pvalcombination.paired! provide meta-analysis based on combination of p-values. The first one is designed for unpaired data and the second for paired design of microarray experiments. Because, our data sets are unpaired, we will use \verb!pvalcombination!. The function requires: a list of gene expression data matrices ({\ttfamily esets}), a list of vectors of class labels ({\ttfamily classes}), type of test statistics ({\ttfamily moderated}) and threshold for significance ({\ttfamily BHth}). It returns list of indices of selected genes. Three possible values for argument {\ttfamily moderated} are available: {\ttfamily "t"} for common t-test, {\ttfamily "limma"} for moderated t-test used in {\ttfamily limma} package \cite{limma} and {\ttfamily "SMVar"} for moderated t-test defined in SMVar package \cite{SMVar}. 
-<<DEGp>>=
-pvalt<-pvalcombination(esets, classes, moderated = "t" , BHth = 0.05)
-@
-Several characteristics, which have been defined in meta-analysis of microarray (especially for methods which combine p-values or effect sizes), are outprinted by the function. {\ttfamily DE} denotes number of significant genes in meta-analysis. {\ttfamily IDD} represents Integration Driven Discoveries, it means genes which are significant in meta-analysis but not in any of the individual studies. Other way round, if a gene is significant only in individual data sets but not in meta-analysis, it is called Integration Driven Revision and {\ttfamily Loss} is a number of such genes. {\ttfamily IDR} and {\ttfamily IRR} are percentages of Integration Driven Discoveries and Integration Driven Revisions in identified differentially expressed genes ({\ttfamily DE}).  
-%pvallimma<-pvalcombination(esets, classes, moderated = "limma" , BHth = 0.01)
-%pvalSMVar<-pvalcombination(esets, classes, moderated = "SMVar" , BHth = 0.01)
-@
-\subsection*{Results}
-<<resp>>=
-summary(pvalt)
-@
-This object is a list with six slots. \emph{Study1} to \emph{Study3} are numeric vectors with indices of differentially expressed genes in data sets 1 to 3. \emph{AllIndStudies} is a vector of indices of differentially expressed genes in at least one data set. Differentially expressed genes found by meta-analysis have their indices stored in \emph{Meta}. And finally, a slot called \emph{TestStatistic} is a vector with test statistics in meta-analysis.  
-\subsection*{Wrapper function}
-Function {\ttfamily metaMA} is a wrapper funcion for this method. It does not require the data preparation step and returns the same ouput as {\ttfamily pvalcombination}. By
+Function {\ttfamily metaMA} is a wrapper funcion for this method. By
 <<>>=         \
-pval<- metaMA(ColonData, "satelite", which ="pval")
+pval<- metaMA(ColonData, "MSIstatus", which ="pval")
 @
-we combine study specific p-values({\ttfamily pval}) in {\ttfamily ColonData} dataset using column {\ttfamily "satelite"} from clinical data as class labels. {\ttfamily pval} is same as {\ttfamily pvalt}.
-%\section*{Discussion}
-%\addcontentsline{toc}{section}{Discussion}
+we combine study specific p-values({\ttfamily pval}) in {\ttfamily ColonData} dataset using column {\ttfamily "MSIstatus"} from clinical data as class labels. {\ttfamily pval} is a list with seven slots.   \emph{Study1} to \emph{Study3} are numeric vectors with indices of differentially expressed genes in data sets 1 to 3. \emph{AllIndStudies} is a vector of indices of differentially expressed genes in at least one data set. Differentially expressed genes found by meta-analysis have their indices stored in \emph{Meta}. A slot called \emph{TestStatistic} is a vector with test statistics in meta-analysis. The last slot \emph{gene.names} contains the names of the genes in the analysis.  
+
 
 \chapter{Methods that combine effect sizes}
 %\addcontentsline{toc}{part}{Methods that combine effect size}
@@ -97,166 +75,36 @@ Method presented in \cite{Marot} offers three variants of effect sizes (classica
 Because there are two different ways of implementation of this method, we will discuss them separately.
 %\addcontentsline{toc}{section}{Usage}
 \subsection*{Implementation from metaMA package}
-\paragraph{Data preparation}
-This method requires two lists, one containing the data matrices and the other one the corresponding vectors of group labels.
 <<>>=
-esets <- GEDM(ColonData)
-classes <- selectClass(ColonData, "satelite", "factor")
+es <- metaMA(ColonData, "MSIstatus", which = "ES")
 @
-\paragraph{Detecting differentially expressed genes}
-As we have unpaired data, we are going to use function {\ttfamily EScombination}. This function has four arguments: a list of gene expression data matrices ({\ttfamily esets}), a list of class labels vectors ({\ttfamily classes}), effect size definition ({\ttfamily moderated})  and a threshold for false discovery rate (FDR) ({\ttfamily BHth}). Three possible values for {\ttfamily moderated} are available: {\ttfamily "t"} for common t-test, {\ttfamily "limma"} for moderated t-test used in limma package \cite{limma} and {\ttfamily "SMVar"} for moderated t-test defined in SMVar package \cite{SMVar}. 
-<<ESmetaMA>>=
-ESt<-EScombination(esets, classes, moderated = "t" , BHth = 0.01)
-@
-Function {\ttfamily EScombination} prints several measures defined in meta-analysis of microarray. {\ttfamily DE} denotes number of significant genes in meta-analysis. {\ttfamily IDD} represents Integration Driven Discoveries, it means genes which are significant in meta-analysis but not in any of the individual studies. Other way round, if a gene is significant only in individual data sets but not in meta-analysis, it is called Integration Driven Revision and {\ttfamily Loss} is a number of such genes. {\ttfamily IDR} and {\ttfamily IRR} are percentages of Integration Driven Discoveries and Integration Driven Revisions in identified differentially expressed genes ({\ttfamily DE}). 
-<<>>=
-summary(ESt)
-@
-This object is a list with six slots. \emph{Study1} to \emph{Study3} are indices of differentially expressed genes in data sets 1 to 3. \emph{AllIndStudies} is a vector of indices of differentially expressed genes in at least one data set. Differentially expressed genes found by meta-analysis have their indices stored in \emph{Meta}. And finally, a slot called \emph{TestStatistic} is a vector with test statistics ("combined effect size") in meta-analysis. 
-\paragraph{Wrapper function}
-The same results can be obtained via
-<<>>=
-es <- metaMA(ColonData, "satelite", which = "ES")
-@
-
+This object is a list with seven slots. \emph{Study1} to \emph{Study3} are indices of differentially expressed genes in data sets 1 to 3. \emph{AllIndStudies} is a vector of indices of differentially expressed genes in at least one data set. Differentially expressed genes found by meta-analysis have their indices stored in \emph{Meta}. A slot called \emph{TestStatistic} is a vector with test statistics ("combined effect size") in meta-analysis. The last slot \emph{gene.names} contains the names of the genes in the analysis (rownames of the gene expression data matrices). 
 \subsection*{Implemenetation from GeneMeta package}
-\paragraph{Data preparation}
-Before calculating effect sizes we have to create numeric vectors with class labels in form of $1$'s and $0$'s. $1$ is supposed to be for diseased samples and $0$ for normal samples. In data sets used as example in this document $1$ refers to MSI samples and $0$ to MSS.  
+Function ({\ttfamily ES.GeneMeta}) wrapes data preparation and functions {\ttfamily zScore}, {\ttfamily ScoresFDR}.
 <<>>=
-ph1<-clinical(ColonData)[[1]][,1]
-levels(ph1) <- c(1, 0)
-clinical(ColonData)[[1]][,1]
-ph1
-@ and similary for other data sets 
-<<>>=
-ph2<-clinical(ColonData)[[2]][,1]
-levels(ph2) <- c(1, 0)
-ph3<-clinical(ColonData)[[3]][,2]
-levels(ph3) <- c(1, 0)
-
+es2<-ES.GeneMeta(ColonData, "MSIstatus", nperm = 100)
 @
-{\ttfamily ph1}, {\ttfamily ph2} and {\ttfamily ph3} are numeric vectors containing class labels for data sets {\ttfamily denmark}, {\ttfamily australia} and {\ttfamily japan}.  These vectors are needed as arguments for functions which provide effect size and its variability estimates. 
-
-\paragraph{Detecting differentially expressed genes}
-Functions {\ttfamily getdF}, {\ttfamily dstar} and {\ttfamily sigmad} estimate effect size and its variability for a individual data set, therefore we have to use them three-times. For {\ttfamily denmark} data set  
-<<ESGeneMeta>>=
-d.den <- getdF(GEDM(ColonData)[[1]], ph1)
-d.adj.den <- dstar(d.den, length(ph1))
-var.d.adj.den <- sigmad(d.adj.den, sum(ph1 == 0), sum(ph1 == 1))
-head(d.adj.den)
-head(var.d.adj.den)
-@ 
-and for other two data sets 
-<<>>=
-d.aus <- getdF(GEDM(ColonData)[[2]], ph2)
-d.adj.aus <- dstar(d.aus, length(ph2))
-var.d.adj.aus <- sigmad(d.adj.aus, sum(ph2 == 0), sum(ph2 == 1))
-d.jap <- getdF(GEDM(ColonData)[[3]], ph3)
-d.adj.jap <- dstar(d.jap, length(ph3))
-var.d.adj.jap <- sigmad(d.adj.jap, sum(ph3 == 0), sum(ph3 == 1))
-@
-Function {\ttfamily getdF} has two arguments: the data set (a ExpressionSet object or a matrix) and class labels (a factor or numeric vector with $1$ and $0$) and computes estimates of standardized mean difference, found in Hedge and Olkin's \cite{Hedges}. Function {\ttfamily dstar} corrects the estimates for sample size bias, therefore its second argument is sample size of the data set. Function {\ttfamily sigmad} calculates the estimate of variance of unbiased effect size. For calculation, the user has to provide effect size estimates and sample size of each class. \par
-Now, we are going to use Chochran's $Q$ statistic \cite{Cochran} to test between-study variability, so we can decide whether we should be considering random-effect (REM) or fixed-effect model(FEM) for the data. \par
-Function {\ttfamily f.Q} provides a straightforward calculation of Cochran's $Q$ statistic. If the null hypothesis that the between-study variance is equal to zero (data are well modeled by a fixed effects design) then the estimated Q values will have approximately a chi-squared distribution with degrees of freedom equal to the number of studies minus one. We are going to look at mean and histogram of $Q$ statistics. Later we will compare quantiles of $Q$ to quantiles of chi-square distribution.  
-
-\begin{center}
-<<fig=true>>=
-mymns <- cbind(d.adj.den, d.adj.aus,d.adj.jap)
-myvars <- cbind(var.d.adj.den, var.d.adj.aus,var.d.adj.jap)
-my.Q <- f.Q(mymns, myvars)
-mean(my.Q)
-hist(my.Q, breaks = 50, col = "red")
-@
-\end{center}
-\begin{center}
-<<fig=true>>=
-num.studies <- 3
-plotQvsChi(my.Q, num.studies)
-@ 
-\end{center}
-According to Q-Q plot the hypothesis seems to be valid and fixed-effect model (FEM) should be used. However, we are going to use random-effect model (REM) too, so we can see if there is any difference in estimates of combined effect size.\par  
-The computation is simpler for FEM than for REM. Functions {\ttfamily mu.tau2} and {\ttfamily var.tau2} estimate combined effect size ({\ttfamily mu.tau2}) and variance ({\ttfamily var.tau2}). Each effect size is a weighted average of the effects for the individual data sets divided by its standard error. The weights are the reciprocal of the estimated variances.  
-
-\begin{center}
-<<fig=true>>=
-#FEM
-muFEM = mu.tau2(mymns, myvars)
-sdFEM = var.tau2(myvars)
-ZFEM = muFEM/sqrt(sdFEM)
-qqnorm(ZFEM, pch = "*")
-qqline(ZFEM, col = "red")
-@
-\end{center}
-
-Plotting the quantiles of the effects we can see that the presumption of approximate Normality seems to be appropriate.\par
-In REM we have to account between-study variability ($\tau^2$). Function {\ttfamily tau2.DL} provides DerSimonian's and Laird's \cite{DerSimonian} estimates of $\tau^2$ from Cochran's $Q$. It has two addional arguments: number of studies ({\ttfamily num.studies}) and weights ({\ttfamily my.weights=1/myvars}). We add between-study variability to estimated variance ({\ttfamily myvars}) and calculate the combined effect size like in FEM.
-<<>>=
-#REM
-num.studies <- 3
-my.tau2.DL <- tau2.DL(my.Q, num.studies, my.weights=1/myvars)
-myvarsDL <- myvars + my.tau2.DL
-muREM <- mu.tau2(mymns, myvarsDL)
-varREM <- var.tau2(myvarsDL)
-ZREM <- muREM/sqrt(varREM)
-@
-{\ttfamily muFEM} or {\ttfamily muREM} are numeric vectors with estimated combined (overall) effect size for a gene in FEM or REM. The estimated standard error of overall effect size for each gene is stored in numeric vectors: {\ttfamily varFEM} or {\ttfamily varREM}. We will test significance of overall effect size by Z-score ({\ttfamily ZFEM} or {\ttfamily ZREM}) defined as mean divided by standard error.\par
-We can easily compare FEM estimates and REM estimates
-\begin{center}
-<<fig=true>>=
-plot(muFEM, muREM, pch = "*")
-abline(0, 1, col = "red")
-@
-\end{center} 
-We do not see much difference here. Actually, for most of the genes the $\tau^2$ is estimated as zero. 
-\begin{center}
-<<fig=true>>=
-hist.tau<-hist(my.tau2.DL, col = "red", breaks = 100, main = "Histogram of tau")
-@
-\end{center}
-\paragraph{Results}
-The procedure described in details above is also implemented in function {\ttfamily zScores}. The arguments of this function are a list of expression sets ({\ttfamily esets}) and a list of classes ({\ttfamily classes}). Argument {\ttfamily useREM} chooses between REM and FEM. 
-<<>>=
-esets <- GEDM(ColonData)
-classes <- selectClass(ColonData, "satelite", "binary")
-theScores <- zScores(esets, classes, useREM = FALSE)
-round(theScores[1:2, ],3)
-@
-We get a matrix ({\ttfamily theScores}) with the following columns:
+{\ttfamily nperm = 100} is used only for computational complexity. A thousand of permutation is more appropriate.  
+We get a list with two slots. Columns of the first one ({\ttfamily theScores}) refer to:
 \begin{itemize}
-\item \emph{Effect\_Ex\_ } are the unbiased estimates of the effect (\emph{d.adj. })
-\item \emph{EffectVar\_Ex\_ } are the estimated variances of the unbiased effects (\emph{var.d.adj. })
+\item \emph{Effect\_Ex\_ } are the unbiased estimates of the effect 
+\item \emph{EffectVar\_Ex\_ } are the estimated variances of the unbiased effects 
 \item \emph{zSco\_Ex\_} are the unbiased estimates of the effects divided by their standard deviation 
-\item \emph{Qvals} are the Q statistics (\emph{my.Q}) and df is the number of combined experiments minus one
-\item \emph{MUvals} and \emph{MUsds} are equal to \emph{muFEM} and \emph{sdFEM} (the overall mean effect size and its standard deviation) 
-\item \emph{zSco} are the z scores (\emph{ZFEM})
+\item \emph{Qvals} are the Q statistics and \emph{df} is the number of combined experiments minus one
+\item \emph{MUvals} and \emph{MUsds} are the overall mean effect sizes and their standard deviations 
+\item \emph{zSco} are the z scores  
 \item \emph{Qpvalues} is for each gene the probability that a chi-square distribution with \emph{df} degree of freedom has a higher value than its $Q$ statistic
 \item \emph{Chisq} is the probability that a chi-square distribution with 1 degree of freedom has a higher value than \emph{zSco2}
 \end{itemize}
-Function {\ttfamily zScoresFDR} implements SAM \cite{SAM} type analysis to estimate the false discovery rate (FDR). 
-<<>>=
-ScoresFDR <- zScoreFDR(esets, classes, useREM = FALSE, nperm = 50, CombineExp = 1:3)
-names(ScoresFDR) 
-round(ScoresFDR$pos[1:2, ],3)
-@ It is a list with three slots: {\ttfamily pos},{\ttfamily neg} and {\ttfamily two.sided}. The first slot stores the results of the calculation, if the FDR is computed for the positive Z-scores, the second for the negative Z-scores and the last one for the two sided situation. Each slots contains a matrix with similar structure as obtained by {\ttfamily zScores} with additional FDR for each data set and combination.\par  
-Function {\ttfamily plotES} provides several visualizations of the results. Specifying {\ttfamily which=1} will plot so called \emph{IDRplot}. This plot shows the fraction of the genes that have a higher effect size than the threshold for the combined Z-score , but not for any of the data set specific Z-scores. Genes with combined Z-score $>0$ and $<0$ are plotted separately. Selection {\ttfamily which=2} will plot the number of genes and the corresponding FDR for the two sided situation. If the user is more interested in the number of genes that are below a given threshold for the FDR, one decides for {\ttfamily which=3}. It shows for each study (indicated by different colors) and various thresholds for the FDR (x axis) the number of genes that are below this threshold in the given study but above in all other studies are shown (y axis). If numeric vector is used that all figure specified in the vectors are plot. \par
-Argument {\ttfamily legend.names} is a character vector with names of the date set used in legends and {\ttfamily colors} is a vector of colors to be used for plotting.
-<<fig=true, width=8, height=5>>=
-plotES(theScores, ScoresFDR, num.studies=3, legend.names=c("Combined set",
- "Denmark", "Australia", "Japan"), colors=c("red","blue",
- "green","yellow"), which=1:3)
-@
-\paragraph{Wrapper function}
-There is also another function ({\ttfamily ES.GeneMeta}) that wrapes data preparation and functions {\ttfamily zScore}, {\ttfamily ScoresFDR}.
-<<>>=
-es2<-ES.GeneMeta(ColonData, "satelite", nperm = 100)
-@
-{\ttfamily nperm = 100} is used only for computational complexity. A thousand of permutation is more appropriate.  
+
+and the second one (\emph{ScoresFDR}) is a list with three slots: {\ttfamily pos}, {\ttfamily neg} and {\ttfamily two.sided}. The first slot stores the results of the calculation, if the FDR is computed for the positive Z-scores, the second for the negative Z-scores and the last one for the two sided situation. Each slots contains a matrix with similar structure as {\ttfamily theScores} with additional FDR for each data set and combination.\par  
+
 
 \chapter{Similarity of Ordered Gene Lists (SOGL)}
 %\addcontentsline{toc}{part}{Similarity of Ordered Gene Lists (SOGL)}
 \section*{Introduction}
 %\addcontentsline{toc}{section}{Introduction}
-Similarity of Ordered Gene Lists is another method for meta-analysis of microarray. It is call as "comparison of comparisons" by its authors \cite{Yang2006}. \par
+Similarity of Ordered Gene Lists is another method for meta-analysis of microarray. It is call as "comparison of comparisons" by its authors \cite{SOGL}. \par
 Briefly, it assigns a similarity score to a comparison of ranked (ordered) gene lists. The score is based on the number of overlapping genes in the top ranks. It computes the size of overlap for each rank. The final score is a weighted sum of these values, with more weight put on the top ranks. \par
 \section*{Algorithm}
 \begin{enumerate}
@@ -269,47 +117,12 @@ Briefly, it assigns a similarity score to a comparison of ranked (ordered) gene 
 The algorithm above is valid for meta-analysis in which expression data are not available. However, in this situation we can not use same approach for tunning $\alpha$. 
 \section*{Usage}
 %\addcontentsline{toc}{section}{Usage}
-\subsection*{Data preparation}
-As long as we have data stored in MetaArray object, there is no need for data transformation of any kind. We can move directly to order the genes as the first step in detecting differentially expressed genes.
-\subsection*{Detecting differentially expressed genes}
-Detection of diferentially expressed gene can be perfomed by a sequence of function or by one wrapper function. We will discuss both approaches below.\par
-We start with ordering the genes from the most up-regulated to the most down-regulated ones. Function {\ttfamily computeOrdering} provides such functionality. It has three arguments: the dataset, name of clinical parameter with class labels and the test statistic (fold-change or t-test with unequal variance).
-<<SOGLvyp>>=
-ordering<- computeOrdering(ColonData, "satelite", "T")
-@
-Now we have to tune the $\alpha$ parameter so we could obtain the similarity score.\par
-Function {\ttfamily computeAlpha} returns vector of possible values for $\alpha$. These depend on the number of genes in analysis (argument {\ttfamily ngenes})or minimal weight (argument {\ttfamily min.weight}) to be considered in score calculation. One can also select a particular number of top genes to be analyzed (argument {\ttfamily n}). 
-<<>>=
-A<-computeAlpha(ngenes=500)
-A
-@
-When {\ttfamily n} is used only one value of $\alpha$ is returned.
-<<>>=
-a<-computeAlpha(n=25, ngenes=500)
-a
-@
-Random permutation of class labels and subsampling are necessary to gather the optimal value for $\alpha$. This is the most computationaly complex step of the analysis. 
-<<RandomScore>>=
-random.score<-RandomScore(data = ColonData, varname = "satelite", 
-B = 10, alpha = A, test = "T",  two.sided = TRUE)
-@
-Function {\ttfamily RandomScore} performs random permutation of class labels and subsampling and returns a list with three slots. A matrix of smiliarity scores in which rows refer to $\alpha$'s and column to permutations is stored in \emph{random} slot. Similar results from subsampling are stored in \emph{subsample} slot. If {\ttfamily "empirical"}  is part of {\ttfamily which} argument then also 95\% empirical confidence intervals and medians of expected number of overlapping genes for each position are provided in \emph{empiricial.ci}. The argument {\ttfamily two.sided} is {\ttfamily TRUE} if both sides of ordered gene list are to be compared and {\ttfamily FALSE} if only top genes have to be considered.\par
-Now, optimal value for $\alpha$ can be selected according to pAUC as a meassure of the separability of two distributions: scores after random permutation of class labels and scores after subsampling. The $\alpha$ with  the highest pAUC is selected.\par
-<<selectAlpha>>=
-A.opt <- selectAlpha(A, random.score$subsample, random.score$random)
-@
-\subsection*{Results}
-The final similarity score {\ttfamily score}, its significance {\ttfamily sig} and vector of genes which contribute to the overall similarity score {\ttfamily genes} can be obtained via:
-<<SOGLres>>=
-score<-prelimScore(ordering, A.opt$alpha)
-sig<-sigScore(ordering, A.opt$alpha, 100)
-genes<-selectGenes(ordering, A.opt$alpha, 0.95)
-@
-\subsection*{Wrapper function}
-Function {\ttfamily performSOGL} is a wrapper function for Similarity of Ordered Gene Lists. 
+
+Function {\ttfamily performSOGL} calculates the similarity score, its statistical significance and the genes responsible for the score.
 <<SOGLperform>>=
-SOGL.res <- performSOGL(ColonData, varname = "satelite", test = "FCH", 
-B = 100, which=c("score", "empirical"), min.weight = 1e-05, two.sided = TRUE )
+SOGL.res <- performSOGL(ColonData, varname = "MSIstatus", 
+test = "FCH", B = 100, which=c("score", "empirical"), 
+min.weight = 1e-05, two.sided = TRUE )
 @ 
 {\ttfamily SOGL.res} is a list that contains:
 \begin{itemize}
@@ -328,17 +141,20 @@ B = 100, which=c("score", "empirical"), min.weight = 1e-05, two.sided = TRUE )
 
 The {\ttfamily SOGL.res} is an object of class {\ttfamily SOGLresult} for which plot function exist. 
 <<fig = true>>=
-par(mfrow = c(1, 3))
-plot(SOGL.res, "alpha selection")
-plot(SOGL.res, "density")
+plot(SOGL.res, "alpha selection") 
+@
+
+The graph shows pAUC of all $\alpha$'s considered. The selected $\alpha$ is singed by red vertical line. \par
+<<fig = true>>=
+plot(SOGL.res, "density") 
+@
+
+This plots the estimated densities of random (in black) and subsampled score (in red) for selected $\alpha$. The observed similarity score is marked by vertical line. The bottom rugs are scores actually achieved in permutations. 
+<<fig = true>>=
 plot(SOGL.res, "empirical CI")
-@    
-The left graph shows pAUC of all $\alpha$'s considered. The selected $\alpha$ is singed by red vertical line. \par
-In the center, one can see estimated densities of random (in black) and subsampled score (in red) for selected $\alpha$. The observed similarity score is marked by vertical line. The bottom rugs are scores actually achieved in permutations. 
-The right graph displays the empirical confidence intervals for number of overlapping genes to each position. Obsereved overlaps are drawn as black step-function.
-
-
-
+@
+    
+The graph displays the empirical confidence intervals for number of overlapping genes to each position. Obsereved overlaps are drawn as black step-function.
 
 \chapter{RankProduct}
 %\addcontentsline{toc}{part}{RankProduct}
@@ -356,48 +172,10 @@ Algorithm of the method has five steps:
 \item Step 4 is repeated $L$ times to estimate the distribution of $RP_g^{(l)}$. This distribution is used to calculate p-value and pfp for each gene.
 \end{enumerate}
 \section*{Usage}
-\subsection*{Data preparation}
-In order to run a rank product meta-analysis, user needs to call function {\ttfamily RPadvance}. It  requires three arguments: {\ttfamily data}, {\ttfamily cl} and {\ttfamily origin}. The first one {\ttfamily data} is the matrix (or data frame) containing the gene expression data that should be analyzed. Each of its rows corresponds to a gene, and each column corresponds to a sample. Second and third argument, {\ttfamily cl} and {\ttfamily origin}, are vectors of length {\ttfamily ncol(data)} containing the class labels of the samples or the origin labels of the samples. Function {\ttfamily mergedata} returns a list with three slots corresponding to arguments described above. {\ttfamily varname} argument is a string indicating which columns of the clinical data matrices should be used as class labels. 
-<<rankdata>>=
-rankdata<-mergedata(ColonData, "satelite")
-rankdata$cl
-rankdata$origin
-@
-In {\ttfamily cl} all $1$'s refer to MSI samples and all $2$'s to MSS samples. Similarly in {\ttfamily origin}, $1$ belongs to samples from first data set ({\ttfamily denmark}), $2$ from second data set ({\ttfamily australia}) and $3$ from {\ttfamily japan} study. You can choose different numbers for labels, but same numbers are always treated like same samples from same class or with same origin.
-\subsection*{Detecting differentially expressed genes}
-In this section, we show how the rank product method can be applied to detect differentially expressed gene in our data sets in sence of meta-analysis. It means we will get two separate lists (up- and down-regulated genes separately) not two such lists for each data set. For each gene, one pfp (percentage of false prediction) is computed and used to select significant genes.
-We can run meta-analysis by
-<<rankDEG>>=
-RP.out<-RPadvance(rankdata$dat,rankdata$cl,rankdata$origin,num.perm=10,
-logged=TRUE,na.rm=FALSE,gene.names=rownames(GEDM(ColonData)[[1]]), plot=FALSE)
-@
-The data are log-transformed, therefore we set {\ttfamily logged=TRUE}. The number of permutations is default set to 100, you can change it to higher number, if you wish more precise estimates of the pfp. The argument {\ttfamily plot=FALSE} will prevent the graphical display of the estimated pfp vs. number of identified genes. We will use function {\ttfamily plotRP} for a such display.
-\subsection*{Results}
-\begin{center}
-<<fig=true>>=
-plotRP(RP.out, cutoff=0.05)
-@
-\end{center}
-The function {\ttfamily plotRP} graphicaly displays the estimated pfp vs. number of identified genes using the output from {\ttfamily RPadvance}. If cutoff (the maximum accepted pfp) is specified, identified genes are marked in red.
+Function {\ttfamily RankProduct} provides the tables of identified up- and down- regulated genes from a MetaArray-class object.
 <<>>=
-RankRes<-topGene(RP.out, cutoff=0.05)
-head(round(RankRes$Table1,3))
-head(round(RankRes$Table2,3))
-@
-The function {\ttfamily topGene} is used to output a table of the identified genes from the {\ttfamily RP.out}. Table contains genes according to other arguments. It is obligatory to specify either the {\ttfamily cutoff} (the desired significance of the identification) or {\ttfamily num.gene} (the number of top genes identified), otherwise a error message will be printed and the function will be stopped. If cutoff is selected, user needs to choose between {\ttfamily pfp} (percentage of false prediction) or {\ttfamily pval} (p-value). {\ttfamily pfp} is the default setting, which is selected when no selection is made.\par
-Two tables are output, listing identified up- (Table1: class 1 < class 2) and down- (Table2: class1 > class 2) regulated genes. There are 5 columns in the table 
-\begin{enumerate}
-\item \emph{gene.index} is the gene index in the original data set
-\item \emph{RP/Rsum} is the computed rank product for each gene
-\item \emph{FC:(class1/class2)} is the computed fold change of the average expression levels under two conditions, which would be converted to the original scale using input logbase (default value is 2) if {\ttfamily logged=TRUE} is specified
-\item \emph{pfp} is the estimated pfp value for each gene in the list if that gene serves as the cutoff point
-\item \emph{P.value} is the associated P-values for each gene
-\end{enumerate}
-
-\subsection*{Wrapper function}
-Function {\ttfamily RankProduct} needs no data preparation and provides the tables of identified up- and down- regulated genes.
-<<>>=
-rp <- RankProduct(ColonData, "satelite", num.perm = 10)
+rp <- RankProduct(ColonData, "MSIstatus", num.perm = 50,
+ gene.names = rownames(GEDM(ColonData)[[1]]) )
 @
 
 \chapter{Z-statistic - posterior mean differential expression}
@@ -409,8 +187,6 @@ It is based on assumption that gene expression is normally distributed with mean
 \[ Z=\frac{D}{\sigma_D}=\frac{\overline{X}_1 - \overline{X}_2}{\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}} \sim N(0,1),\]
 where $\overline{X}_1$ and $\overline{X}_2$ denotes mean gene expression values in classes, $\sigma_1^2$ and $\sigma_2^2$ denotes the estimated SD in classes and $n_1$ and $n_2$ denotes the number of samples in classes. 
 \section*{Usage}
-%\addcontentsline{toc}{section}{Usage}
-\subsection*{Data preparation}
 Because the same number of samples in each class and study is used in primary publication of the method \cite{Wang}, we will first look at number of samples in our data.
 <<Zdata>>=
 ColonData
@@ -419,71 +195,17 @@ The smallest value in the tables above is 5, therefore we will randomly choose 5
 \subsection*{Detecting differentially expressed genes}
 We apply this method by
 <<Zdeg>>=
-z.stat<-posterior.mean(ColonData, "satelite", 5)
-@ You can set additional parameter {\ttfamily permute} to generate permutation distribution to determine significance of the observed statistic. Using, for example {\ttfamily permute=1000} will generate permutation distribution of z-statistic by permuting class labels within all studies 1,000 times. 
+z.stat<-posterior.mean(ColonData, "MSIstatus", nsamp=5)
+@ You can set additional parameter {\ttfamily permute} to generate permutation distribution to determine significance of the observed statistic. Using, for example {\ttfamily permute=1000} will generate permutation distribution of z-statistic by permuting class labels within all studies 1 000 times. 
 \subsection*{Results}
 <<>>=
 head(round(z.stat,3))
 @
-Only values of Z-statistic ({\ttfamily Zscore}) and their p-values ({\ttfamily Pvalue}) are outputs from this method.
+Only values of Z-statistic ({\ttfamily Zscore}) and their p-values ({\ttfamily Pvalue}) are the outputs from this method.
 \section*{Notes and discussion}
 %\addcontentsline{toc}{section}{Notes and discussion}
 This implementation expects either same microarray platform or same scale of expression values (like after POE transformation \cite{metaArray}) in all data sets.
-
-\chapter{TSP-clasiffier}
-%\addcontentsline{toc}{part}{TSP-clasiffier}
-\section*{Introduction}
-%\addcontentsline{toc}{section}{Introduction}
-This method has been originally described in \cite{Geman}. A top scoring pair (TSP) is a pair of genes whose relative ranks can be used to classify arrays according to a binary phenotype. A top scoring pair classifier has three advantages over standard classifiers:
-\begin{enumerate}
-\item the classifier is based on the relative ranks of genes and is more robust to normalization and preprocessing,
-\item the classifier is based on a pair of genes and is likely to be more interpretable than a more complicated classifier, 
-\item a classifier based on a small number of genes lends itself diagnostic tests based on PCR that are both more rapid and cheaper than classifiers based on a large number of genes.
-\end{enumerate}
-\section*{Usage}
-%\addcontentsline{toc}{section}{Usage}
-In this section we will demonstrate the use of the functions made for meta-analysis of example data sets. We will show how to calculate top scoring pair, how to calculate p-values for significance and how to plot TSP objects. 
-\subsection*{Data preparation}
-We are going to use function {\ttfamily mergedata} again. Please see Data preparation section of RankProduct part for details.  
-<<TSPdata>>=
-tspdata<-mergedata(ColonData, "satelite")
-@
-\subsection*{Detecting differentially expressed genes}
-Function {\ttfamily tspcalc} calculates top scoring gene pair. It has two arguments: {\ttfamily dat} and {\ttfamily grp}. {\ttfamily dat} can be either an $m$ genes by $n$ samples matrix of expression data or an ExpressionSet object. There are also two posibilities for {\ttfamily grp}: A group indicator in character or numeric form or an integer indicating the column of \emph{pData()} to use as the group indicator. We use gene expression data matrix and vector of numeric class labels. 
-<<TSPdeg>>=
-tsp<-tspcalc(dat=tspdata$dat, grp=tspdata$cl)
-@ 
-We can compute the significance of a top scoring pair, too. It calculates "how strong a top scoring pair is". \par
-The function {\ttfamily tspsig} performs a permutation test with the null hypothesis that no TSP exists in the data set. It permutes the group labels $B$ times and calculates a null TSP score for each time. The p-value is then the total number of null TSP scores that exceed the observed TSP score plus $1$ divided by $B + 1$. A progress bar indicates the time left in the calculation. You have to again specify the data expression matrix, class labels and additionally the number of permutations. You can also set the seed for permutations to make results reproducible. 
-<<>>=
-out<-tspsig(tspdata$dat,tspdata$cl,B=50)
-@                                               
-\subsection*{Results}
-Function {\ttfamily tspcalc} returns a tsp object.
-<<TSPres>>=
-tsp
-@
-In the output above each row refers to one top scoring pair. \emph{TSP Score} is TSP score as defined in \cite{Geman}, essentially it is the empirical average of sensitivity and specificity for the pair. \emph{Tie-Breaker} denotes the tie-breaking score described in \cite{Tan}. Briefly, each expression value is ranked within its array, then a rank difference score is calculated for each pair of genes. Finally, \emph{Indices} gives the rows of the gene expression matrix that define a top scoring pair.
-\begin{center}
-<<fig=true>>=
-tspplot(tsp)
-@
-\end{center}
- The {\ttfamily tspplot} accepts a tsp object and returns a TSP plot. The figure plots the expression for the first gene in the TSP pair versus the expression for the second gene in the TSP pair across arrays. The user defined groups are plotted in the colors red and blue. The score for the pair is shown across the top of each plot. If there is more than one TSP, hitting return will cycle from one TSP to the next.
-<<>>=
-summary(out)
-out$p
-out$nullscores
-@
-\emph{p} and \emph{nullscores} are two the most interesting elements of output from {\ttfamily tspsig} function. The former is the significance of TSP and the latter contains top scores observed in permutations.
-\subsection*{Wrapper function}
-Function {\ttfamily TSP} needs no data preparation and provides both calculation of top-scoring pair and its significance.
-<<>>=
-tsp <-  TSP(ColonData, "satelite")
-@
-%\section*{Discussion}
-%\addcontentsline{toc}{section}{Discussion}
-          
+         
           
 \chapter{VennMapping}
 %\addcontentsline{toc}{part}{VennMapping}
@@ -500,35 +222,13 @@ Algorithm of this method consists of three steps:
 \end{enumerate}
 
 \section*{Usage}
-%\addcontentsline{toc}{section}{Usage}
-\subsection*{Data preparation}
-Function {\ttfamily fold.change} calculates mean fold-change in MetaArray object. It has two arguments: data set (e.g. {\ttfamily ColonData}) and name of the column with class labels to be used (e.g. {\ttfamily "satelite"}). It assumes data are on $log_2$ scale.
-<<VennFCH>>=
-fc<-fold.change(ColonData, "satelite")
-@
-Function {\ttfamily gene.select.FC} selects significant/interesting genes from mean fold-change matrix with rows referring  to genes and columns to data sets. The user has to specify (apart from mean fold-change matrix) a cutoff for selection. The cutoff is on $log_2$ scale, too. We chose $1$ for genes with at least 2-fold change in expression.
-<<>>=   
-list<-gene.select.FC(fc,1)
-summary(list)
-@
-Object {\ttfamily list} is a list in which each slot contains names of selected genes in one study. For example from the print above 33 genes have been selected in {\ttfamily denmark} data set. 
-\subsection*{Detecting differentially expressed genes}
-Now, we can move on comparison of selected gene lists in pairs of data sets. There are three functions to perform such a analysis: {\ttfamily conting.tab}, {\ttfamily Z} and {\ttfamily gene.list}. {\ttfamily conting.tab} returns contingency table with number of common genes. {\ttfamily Z} provides Z statistic to measure significance of observed number of common genes and {\ttfamily gene.list} outputs table with names of common genes. All of them have one argument same - it is a list object with names of selected genes in individual data sets. For function {\ttfamily Z} one additional argument is necessary - the number of genes involved in meta-analysis. 
+Function {\ttfamily VennMapper} selects genes in each dataset according to the fold-change cutoff and compares the lists of the selected genes.
 <<>>=
-conting.tab(list)
-Z(list, n = 500)
-gene.list(list)
-@
-\subsection*{Wrapper function}
-Function {\ttfamily VennMapper} provides both gene selection in each dataset and all comparisons of selected gene lists. 
-<<>>=
-vm <- VennMapper(ColonData, "satelite", 1, 500)
+vm <- VennMapper(ColonData, varname="MSIstatus", cutoff=1)
 vm
 @
+\emph{vm\$conting.tab} is the contingency table of the numbers of overlapping genes. \emph{vm\$z.score} is the table of z-scores corresponding to the overlaps and \emph{vm\$genes} is the table of the overlapping genes. 
 
-%\subsection*{Results}
-%\section*{Discussion}
-%\addcontentsline{toc}{section}{Discussion}
 
 \chapter{MAP-Matches}
 %\addcontentsline{toc}{part}{MAP-Matches}
@@ -548,98 +248,31 @@ Algorithm of this method has five steps:
 
 \section*{Usage}
 %\addcontentsline{toc}{section}{Usage}
-\subsection*{Data preparation}
-The analysis starts with calculation of T-statistics. Function {\ttfamily meta.test} returns a list with two slots: matrix of test statistics ({\ttfamily test}) and matrix of p-values ({\ttfamily p}). In each of the matrices rows correspond to genes and columns to data sets. We need only {\ttfamily test} slot for this method. Argument {\ttfamily varname} is a string indicating which column of clinical data should be used as class labels. 
-<<>>=
-stat.real<-meta.test(ColonData, varname = "satelite")$test
-@
-\subsection*{Detecting differentially expressed genes}
-The do not select significant genes in each study we only set threshold for T-statistics. We decided for 95 \% quantile (500 genes in 3 datasets with 95\% quantile leaves top 75 significance tests for the analysis). If there is a lot of genes and datasets in the meta-analysis one should consider higher quantiles. 
-<<MAPTcutoff>>=
-stat <- c(stat.real)
-quan <- quantile(abs(stat), seq(0.00, 1.00, 0.0001))
-T.default <- quan["95.00%"]
-@
-Now, we transform {\ttfamily stat.real} (T-matrix) into a binary matrix. We replace T-statistics above threshold with $1$ and below with $0$.
-<<>>=
-value.dis <- apply(stat.real,MARGIN=c(1,2), function(x) ifelse(abs(x)>T.default,1,0))
-rownames(value.dis)<-rownames(GEDM(ColonData)[[1]])
-head(value.dis)
-@
-Each row {\ttfamily value.dis} is called a meta-analysis pattern. We are going to analyze their occurrence, significance and genes they occur at. Function {\ttfamily ratio} provides basic summarization of {\ttfamily value.dis}. 
-<<ratio>>=
-results<-ratio(value.dis)
-summary(results)
-@
-In {\ttfamily results} we can find: number of genes with T-statistic sufficiently high in each study \emph{n}, patterns observed in data (\emph{X.String}), probability of observing strong match (\emph{p.strong}) and probability of observing soft match (\emph{p.soft}). We say two patterns match strongly if they are equal. The rule for soft match is weaker as only $1$'s in patterns must match. \par
-Function {\ttfamily MAPmatrix} calculates a matrix with rows corresponding to patterns and four columns: unique patterns that are being observed in our data (\emph{uniqe.pat}), number of observed soft matches with the pattern (\emph{n.soft}), number of observed strong matches (\emph{n.strong} and number of $1$'s in the pattern \emph{n.sig}).
-<<allpatterns>>=
-MAPmat<-MAPmatrix(value.dis)
-MAPmat
-@
-Only pattern with multiply $1$'s are connected with common molecular mechanism and we will focus on them in the rest of analysis.
-<<selpaternX>>=
-MAPmat2<-MAPmat[MAPmat$n.sig>1,]
-unique.pat<-as.character(MAPmat2[,1])
-@
-We assume that sufficiently high number of strong matches may provides evidence of common molecular mechanism. Functions {\ttfamily MAPsig1} and {\ttfamily MAPsig2} perform statistical analysis to answer whether we observe significant number of matches or not. The statistical analysis can be done in two ways (both based on permutation testing): we either permute columns of T-matrix (in binary form) or permute class labels in data sets and repeat the whole procedure with same threshold for T-statistics. The former is implemented in {\ttfamily MAPsig1} and the latter in {\ttfamily MAPsig2}. Function {\ttfamily test.group.shuffle} calculates T-statistics with permuted class label repeatedly. 
-
-<<MAPsig1>>=
-p1<-MAPsig1(unique.pat,value.dis,iter=100)
-p1
-@
-<<MAPsig2,results=hide>>=
-out<-test.group.shuffle(ColonData, "satelite", B = 100)
-p2 <- MAPsig2(out, value.dis, unique.pat, B = 100)
-@
-<<>>=
-p2
-@
-Both \emph{p1} and \emph{p2} have same structure: rows refer to patterns and columns to statistical signifficance of observed soft (\emph{p.soft} or \emph{permu.soft}) or strong (\emph{p.strong} or \emph{permu.strong}) matches. 
-\subsection*{Results}
-Finally, we will bind all necessary outputs together. 
-<<MAPres>>=
-resx <- cbind(MAPmat2, p1, p2)
-colnames(resx) <-c(colnames(MAPmat2), "p.strong", 
-"p.weak", "p.permu.strong", "p.permu.weak")
-intx <- t(as.matrix(resx[which(resx[,4]<0.06),]))
-t(resx)
-@ 
-We can plot p-values by
-\begin{center}
-<<fig=true>>=
-plotpattern(resx, method=1)
-@ 
-\end{center}
-or
-\begin{center}
-<<fig=true>>=
-plotpattern(resx, method=2)
-@ 
-\end{center}
-Until now, we have only found out that for some patterns there is significantly high count of strong or soft matches being observed. Obviously we want to know expression of which genes is changed in these patterns. Function {\ttfamily MAP.genes} returns a list in which each slot contains list of genes involved in one pattern. If argument {\ttfamily files} is set to {\ttfamily TRUE} a files with gene names are also saved. 
-<<>>=
-probs<-MAP.genes(resx,value.dis, files=FALSE)
-names(probs)<-rownames(resx)
-summary(probs)
-@
-\emph{probs} is a list with each slot referring to one pattern and list of gene names is stored there. The pattern has been observed at these genes.  
-\par
-\subsection*{Wrapper function}
 Function {\ttfamily MAP.Matches} provides all steps of MAP-Matches method in one-line command. In
 <<>>=
-map <- MAP.Matches(ColonData, "satelite", 
-t.cutoff = "95.00%", nperm = 100, sig.col = "p.col.strong")
+map <- MAP.Matches(ColonData, "MSIstatus", t.cutoff = "95.00%", 
+nperm = 100, sig.col = "p.col.strong")
 @
 the first argument is the dataset (MetaArray object), the second one is a column name of the class labels, {\ttfamily nperm} denotes the number of permutations and the last one {\ttfamily sig.col} is column name for selection of significant patterns - {\ttfamily "p.col.strong"} refer to the p-value of the strong matches when permutation of columns are used.
-%\section*{Discussion}
-%\addcontentsline{toc}{section}{Discussion}
+
+It returns a list of seven slots:
+\begin{itemize}
+\item \emph{tests} is a vector of test statistics
+\item \emph{bin.matrix} is a matrix of genes selected in each of the datasets
+\item \emph{sumarization} is a sumarization of \emph{bin.matrix}: the number of selected genes, the observed patterns and their empirical probabilities
+\item \emph{MAP} is data frame with the numbers of observed strong or soft matches for each gene pattern
+\item \emph{stat.analysis} extends \emph{summarization} with the p-values of the permutation-based tests of the statistical significance of the observed number of gene pattern matches
+\item \emph{genes} is a list of gene names, where each slot refers to one gene pattern and contains the names of the genes for which the pattern was observed.
+\item \emph{all.genes} is a vector of the names of the all genes in the analysis
+\end{itemize}
+
+
 
 \chapter{METRADISC}
 %\addcontentsline{toc}{part}{METRADISC}
 \section*{Introduction}
 %\addcontentsline{toc}{section}{Introduction}
-METRADISC \cite{Zintzaraz} is unique among rank-based methods (like Rank Product or TSP) because it provides an estimate of heterogeneity as one of its outputs. Additionally the method can deal with genes which are being measured in only some of the studies. The implementation available in MAMA package is restricted to genes common in all microarray studies analyzed.
+METRADISC \cite{Zintzaraz} is unique among rank-based methods because it provides an estimate of heterogeneity as one of its outputs. Additionally the method can deal with genes which are being measured in only some of the studies. The implementation available in MAMA package is restricted to genes common in all microarray studies analyzed.
 \section*{Algorithm}
 %\addcontentsline{toc}{section}{Algorithm}
 \begin{enumerate}
@@ -649,70 +282,25 @@ METRADISC \cite{Zintzaraz} is unique among rank-based methods (like Rank Product
 \end{enumerate}
 \section*{Usage}
 %\addcontentsline{toc}{section}{Usage}
-\subsection*{Data preparation}
-We will start with computing test statistic and p-value for each gene and data set. Function {\ttfamily meta.test} returns a list with two slots: data frame of test statistics and data frame of p-values. In each of the matrices rows correspond to genes and columns to data sets. Argument {\ttfamily varname} is a string indicating which column of clinical data should be used as class labels. 
-<<METRAdat>>=
-metra<-meta.test(ColonData, varname = "satelite")
-head(metra$test)
-@
-\subsection*{Detecting differentially expressed genes}
-Now, we can proceed to ranking genes. Function {\ttfamily rank.genes.adv} ranks the genes as described in Algorithm section above. 
-<<>>=
-RANK<-rank.genes.adv(metra)
-head(RANK)
-@
-The genes ranks can be visualized by
-\begin{center}
-<<fig=TRUE>>=
-RANK2<-RANK[order(RANK[,1]),]
-colnames(RANK2)<-c("Denmark","Australia", "Japan")
-heatcol<-colorRampPalette(c("Green", "Black", "Red"))(100)
-metaheat(as.matrix(RANK2), col=heatcol, c.cex = 0.8)
-@ 
-\end{center}
-The next step is to compute average rank $R^*$ and heterogeneity metric $Q^*$ for each gene.
-<<METRArq>>=
-RQ<-compute.RQ(RANK)
-head(round(RQ,1))
-@
-And finally we use function {\ttfamily MCtest} to perform Monte Carlo permutation test. Function requires the observed ranks ({\ttfamily RANK}), observed average rank and heterogeneity metric ({\ttfamily RQ}) and number of permutations ({\ttfamily nper}) as arguments. Number of permutations depends on the required accuracy for the final $p$-values. $1/nper$ is the accuracy for the final $p$-values. For example with $1000$ permutations the $p$-values are calculated with three decimal places.  
-<<METRAmc>>=
-MC<-MCtest(RANK,RQ, nper=1000)
-head(MC)
-@
-\subsection*{Results}
-The command below creates a character vector of genes with significant average ranks and low heterogeneity. The selected threshold for statistical significance is $0.05$.
-<<>>=
-METRA<-c(rownames(MC)[MC[,1]<0.05 & MC[,4]<0.05], 
-rownames(MC)[MC[,2]<0.05 & MC[,4]<0.05])
-METRA[1:10]
-@
-\subsection*{Wrapper function}
 Function {\ttfamily METRADISC} performs all steps of this method in one command.
 <<>>=
-metra<-METRADISC(ColonData, "satelite", nperm = 1000)
+metra<-METRADISC(ColonData, "MSIstatus", nperm = 1000)
 str(metra)
 @
 It returns a list with ranks for each gene and dataset {\emph ranks}, average rank and heterogeneity for each gene {\emph RQ} and results of the Monte Carlo test {\emph MCtest}.
-%\section*{Discussion}
-%\addcontentsline{toc}{section}{Discussion}
 
-\part{Results combination}
+
+\chapter{Results combination}
 %\section{Methods comparison}
-In this part we are going to compare and combine outputs from all methods so we can look and changes in gene expression in various ways. \par
-We are going to start with lists of differentially expressed genes, because this is the only one output common for all methods mentioned in this vignette. We will merge all lists into one variable via function {\ttfamily join.DEG}. The function requires a complete list of genes involved in meta-analysis so it can map indices to gene names like for example function {\ttfamily pvalcombination} provides.  Because the same set of genes was measured in each data set we can arbitrarily choose one data set. 
+In this chapter we are going to compare and combine outputs from all methods so we can look and changes in gene expression in various ways. \par
+We are going to start with lists of differentially expressed genes, because this is the only one output common for all methods mentioned in this vignette. We will merge all lists into one variable via function {\ttfamily join.DEG}.
 <<>>=
-lists<-join.DEG(pvalt, ESt, ScoresFDR, SOGL.res, RankRes, z.stat, 
-tsp, probs,genenames=rownames(GEDM(ColonData)[[1]]), 
-type=c(1,1,3,4,5,6,7,8), cutoff=0.02)
-#or
-lists2<-join.DEG(pval, es, es2, SOGL.res, rp, z.stat, tsp, map,
-genenames=rownames(GEDM(ColonData)[[1]]),  cutoff=0.05)
-names(lists)<-c("PvalCom", "ESCom","ESCom2","OrderedList","RankProduct", 
-"Z-stat","TSP","MAP")
+lists<-join.DEG(pval, es, es2, SOGL.res, rp, z.stat,
+  map,  cutoff=0.05)
+names(lists)<-c("PvalCom", "ESCom","ESCom2","OrderedList",
+"RankProduct", "Z-stat","MAP")
 summary(lists)
 @
-The argument {\ttfamily type} is a numeric identification of the method the object originates. When wrapper function are used there is no need for this argument.\par
 Now, we will transform this list to a binary matrix where rows refer to genes and columns to method and $1$ means that the gene was identified as a differentially expressed gene in the method. Function {\ttfamily make.matrix} provides such transformation.  
 <<>>=
 MAT<-make.matrix(lists)
@@ -728,8 +316,9 @@ metaheat(MAT, legend=1, col=c("red3", "royalblue2"))
  Function {\ttfamily metaheat2} has as many arguments as {\ttfamily heatmap.2} form gplots package and two more. Argument {\ttfamily legend.names} is a character vector with labels to be used in legend. Setting {\ttfamily discret=TRUE} will indicate that legend for discrete values should be drawn. 
 \begin{center}
 <<fig=true, width=6, height=9>>=
-metaheat2(MAT, col=c("red3", "royalblue2"), legend.names=c("DEG","noDEG"), 
-discrete=TRUE, trace="none", dendrogram="none")
+metaheat2(MAT, col=c("red3", "royalblue2"), legend.names=c("DEG",
+"noDEG"), discrete=TRUE, trace="none", 
+dendrogram="none", cexCol=0.9)
 @       
 \end{center}
 The user can perform cluster analysis on {\ttfamily MAT} to search for similarities between methods or genes.\par
@@ -737,12 +326,13 @@ We can look at number of genes found by number of methods by
 <<>>=
 dim(MAT)
 @
-According to the outsprint above, eight different methods have found 217 differentially expressed genes. \par
+According to the outsprint above, eight different methods have found more than 270 differentially expressed genes. \par
 The histogram below shows that the most of the genes have been selected in only one method. 
 \begin{center}
 <<fig=true>>=
 n.met<-apply(MAT,1,sum)
-hist(n.met, main="", xlab="Number of methods", ylab="Number of genes", xlim=c(1,8))
+hist(n.met, main="", xlab="Number of methods", 
+ylab="Number of genes", xlim=c(1,8))
 @
 \end{center}
 {\ttfamily n.met} is a numeric vector of number of methods that identified the gene as differentially expressed. \par 
@@ -769,24 +359,17 @@ In this section we are going to focus on one gene and to look at its expression 
 First we will join all the available results to one list and then select only rows for one gene.\par
 
 <<>>=
-results<-join.results(pvalt, ESt, theScores, ScoresFDR$two.sided, SOGL.res,
- RankRes, z.stat, probs, MC, RQ, type=c(1,1,5,5,2,3,5,4,5,5), 
- genenames=rownames(GEDM(ColonData)[[1]]))
+results<-join.results(pval, es, es2, SOGL.res, rp, z.stat, map, metra)
 
-#or 
-results2<-join.results(pval, es, es2, SOGL.res, rp, z.stat, map, metra, 
-genenames=rownames(GEDM(ColonData)[[1]]))
-
-gene<-metagene("203008_x_at",results2)
-names(gene)<-c("pval","es.metaMA", "es.GeneMeta", "SOGL", "RP", "z.stat",
- "MAP", "METRADISC")
+gene<-metagene("203008_x_at",results)
+names(gene)<-c("pval","es.metaMA", "es.GeneMeta", "SOGL", "RP",
+ "z.stat", "MAP", "METRADISC")
 gene
 @
 This output provides much of the information available on the gene through all the described methods. It is a rather complicated structure, so we will try to represent it graphically in comprehensible form.
 \begin{center}
 <<fig=true>>=
-plotgene(gene, type=c(0,0,1,4,5,6,7,10), datalabels=c("denmark", "australia",
- "japan", "combined"))
+plotgene(gene, datalabels=c("denmark", "australia", "japan", "combined"))
 @
 \end{center}
 @

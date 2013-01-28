@@ -13,7 +13,7 @@ RankProduct(data, varname, num.perm = 100, logged = TRUE, na.rm = FALSE, gene.na
 
 \arguments{
   \item{data}{MetaArray object}
-  \item{varname}{Character String - name of one column in clinical data matrices to be used as class labels}
+  \item{varname}{Character String - name of one column in clinical data matrices to be used as class labels, factors are turned into a numeric vector by \code{as.numeric()-1)}}
   \item{num.perm}{Number of permutations}
   \item{logged}{Logical - indicating whether data are on log-scale}
   \item{na.rm}{	Logical - if \code{FALSE} (default), the NA value will not be used in computing rank. If \code{TRUE} the missing values will be replaced by the genewise mean of the non-missing values. Gene will all value missing will be assigned "NA"}
@@ -24,7 +24,7 @@ RankProduct(data, varname, num.perm = 100, logged = TRUE, na.rm = FALSE, gene.na
 }
 
 \value{
-Object of class \code{RankProduct.res} containing outputs from functions: \code{RPadvance} and \code{topGene}
+Object of class \code{RankProduct.res} containing outputs from functions: \code{RPadvance} and \code{topGene}. 'Class1' refers to the first level of the used class labels, 'Class2' to the second one. 
 
 }
 \references{
@@ -34,13 +34,11 @@ Breitling, R., Armengaud, P., Amtmann, A., and Herzyk, P.(2004) Rank Products: A
 Ivana Ihnatova
 }
 
-\seealso{
-\code{\link{RPadvance}}, \code{\link{topGene}}
-}
+
 \examples{
 \dontrun{
 data(ColonData)
-rp<-RankProduct(ColonData, "satelite", num.perm=10)
+rp<-RankProduct(ColonData, "MSI", num.perm=10)
 }}
 \keyword{ univar}
 

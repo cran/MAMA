@@ -1,0 +1,10 @@
+\contentsline {chapter}{\numberline {1}Introduction}{2}
+\contentsline {chapter}{\numberline {2}Methods that combine p-values}{4}
+\contentsline {chapter}{\numberline {3}Methods that combine effect sizes}{5}
+\contentsline {chapter}{\numberline {4}Similarity of Ordered Gene Lists (SOGL)}{8}
+\contentsline {chapter}{\numberline {5}RankProduct}{13}
+\contentsline {chapter}{\numberline {6}Z-statistic - posterior mean differential expression}{15}
+\contentsline {chapter}{\numberline {7}VennMapping}{18}
+\contentsline {chapter}{\numberline {8}MAP-Matches}{20}
+\contentsline {chapter}{\numberline {9}METRADISC}{22}
+\contentsline {chapter}{\numberline {10}Results combination}{24}

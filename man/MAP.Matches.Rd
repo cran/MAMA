@@ -29,6 +29,7 @@ Object of class \code{MAP.Matches.res} containing
   \item{MAP }{Data frame describing observed patterns: number of strong \code{n.strong} and soft \code{n.soft} matches and number of genes involved \code{n.sig}}
   \item{stat.analysis}{Results of statistical analysis} 
   \item{genes}{List of genes observed with each pattern} 
+  \item{all.genes}{Names of the all genes in the analysis}
 }
 \references{Yang, X., Bentink, S. and Spang, R. 2005, Detecting Common Gene Expression
 Patterns in Multiple Cancer Outcome Entities, Biomedical Microdevices,
@@ -38,7 +39,7 @@ Ivana Ihnatova
 }
 \examples{
 data(ColonData)
-MAP.Matches(ColonData, "satelite", nperm = 100, sig.col="p.lab.strong")
+MAP.Matches(ColonData, "MSI", nperm = 100, sig.col="p.lab.strong")
 
 }
 \keyword{ univar }

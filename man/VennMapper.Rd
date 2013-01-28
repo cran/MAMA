@@ -8,13 +8,13 @@ Wrapper function for VennMapping
 This is a wrapper function for meta-analysis using VennMapping method. It performs all necessary steps and provides all available outputs.
 }
 \usage{
-VennMapper(data, varname, cutoff, ngenes)
+VennMapper(data, varname, cutoff)
 }
 \arguments{
   \item{data}{MetaArray object}
   \item{varname}{Character String - name of one column in clinical data matrices to be used as class labels}
   \item{cutoff}{Numeric - cutoff for selection of genes according to their fold-change in log2-scale. e.g. \code{1} equals to two-fold expression change}
-  \item{ngenes}{Numer of genes involved in the analysis}
+ 
 }
 
 \value{
@@ -31,7 +31,7 @@ Ivana Ihnatova
 
 \examples{
 data(ColonData)
-vm<-VennMapper(ColonData, "satelite", 1, 500)
+vm<-VennMapper(ColonData, "MSI", 1)
 }
 \keyword{nonparametric }
 

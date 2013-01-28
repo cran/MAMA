@@ -5,6 +5,8 @@ esets <- GEDM(data)
 classes.f <- selectClass(data, varname, "factor")
 if (which == "pval") res<-pvalcombination(esets, classes.f, moderated = moderated, BHth = BHth) 
 if (which == "ES") res<-EScombination(esets, classes.f, moderated = moderated, BHth = BHth) 
+if (!all(sapply(1:(length(GEDM(data))-1), function(x) all(rownames(GEDM(data)[[x]])==rownames(GEDM(data)[[x+1]]))))) stop("The gene expression data matrices have not equal rownames")
+res[["gene.names"]]<-rownames(GEDM(data)[[1]])
 class(res)<-"metaMA.res"
 return(res)
 }
@@ -23,9 +25,11 @@ return(res)
 RankProduct<-function(data, varname,  num.perm = 100, logged = TRUE, na.rm = FALSE, 
     gene.names = NULL, plot = FALSE, rand = NULL, cutoff= 0.05)
 {
- if (is.null(gene.names)) gene.names=rownames(GEDM(data)[[1]])
+if (!require(RankProd)) 
+        stop("library RankProd is missing")
+if (is.null(gene.names)) gene.names=rownames(GEDM(data)[[1]])
  rankdata <- mergedata(data, varname)
- RP.out <- RPadvance(rankdata$dat, rankdata$cl, rankdata$origin, 
+ RP.out <- RPadvance(rankdata$dat, rankdata$cl-1, rankdata$origin, 
   num.perm = num.perm, logged = logged, na.rm = na.rm, 
     gene.names = gene.names, plot = plot, rand = rand)
   RankRes <- topGene(RP.out, cutoff = cutoff)  
@@ -33,23 +37,13 @@ RankProduct<-function(data, varname,  num.perm = 100, logged = TRUE, na.rm = FAL
  return(RankRes)
 }
 
-TSP<-function(data, varname, B = 50)
-{
-rankdata <- mergedata(data, varname)
-tsp <- tspcalc(dat = rankdata$dat, grp = rankdata$cl)
-cat("Computing significance..\n")
-out <- tspsig(rankdata$dat, rankdata$cl, B = B)
-res <- list( tsp = tsp, sig = out)
-class(res) <-"tsp.res"
-return(res)
-}
 
-VennMapper<-function(data, varname, cutoff, ngenes)
+VennMapper<-function(data, varname, cutoff)
 {
 fc <- fold.change(data, varname)
 list <- gene.select.FC(fc, cutoff)
 ct<-conting.tab(list)
-z<-Z(list, ngenes)
+z<-Z(list, length(fc))
 gl<-gene.list(list)
 res<- list( conting.tab = ct, z.score = z, genes = gl)
 class(res)<-"VennMapper.res"
@@ -111,7 +105,8 @@ intx <- as.data.frame(t(resx[which(resx[, sig.col] <= sig.cutoff),  ]))
 probs <- MAP.genes(resx, value.dis, files = FALSE)
 names(probs) <- rownames(resx)
 
-out<-list(tests = stat.real, bin.matrix = value.dis, sumarization = results, MAP = MAPmat, stat.analysis = intx, genes = probs)
+all.genes<-rownames(stat.real)
+out<-list(tests = stat.real, bin.matrix = value.dis, sumarization = results, MAP = MAPmat, stat.analysis = intx, genes = probs, all.genes=all.genes)
 class(out) <- "MAP.Matches.res"
 return(out)
 }

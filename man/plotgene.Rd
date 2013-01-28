@@ -1,5 +1,4 @@
-\name{plotgene2}
-\alias{plotgene2}
+\name{plotgene}
 \alias{plotgene}
 \title{
 Function to visuaze change in expression of one gene
@@ -8,18 +7,17 @@ Function to visuaze change in expression of one gene
 Various methods for meta-analysis provide different outputs. Function takes an output from function \code{metagene} as input and draws a plot. 
 }
 \usage{
-plotgene2(gene, datalabels, type)
-plotgene(gene, datalabels, type, col=c("green", "red"),cex=c(0.7),sig=0.05)
+plotgene(gene, datalabels=NULL, type, col=c("green", "red"),cex=c(0.7),sig=0.05)
 }
 \arguments{
   \item{gene}{
 A list, output from function \code{metagene}
 }
   \item{datalabels}{
-A character vector, names of the data sets and for meta-analysis results 
+A character vector, names of the data sets and for meta-analysis results. If \code{NULL}, dummy names \code{Study1}, \code{Study2}, \code{Study3}, ..., \code{Meta} are created. 
 }
   \item{type}{
-A numeric vector indicating which function the slots of \code{gene} come from
+A numeric vector indicating which function the slots of \code{gene} come from. It it is not necessary, if the slots come from the results of the wrapper functions. 
 }
  \item{col}{colors for unsignificant/significant}
  \item{cex}{Font size for labels in unsignificant/significant part of the chart}
@@ -40,7 +38,7 @@ For \code{type} please use:
 \item{7}{ for function \code{MAP.genes} or \code{MAP.Matches}}
 \item{8}{ for function \code{MC}}
 \item{9}{ for function \code{compute.RQ}}
-\item{10}{ for funtion \code{METRADISC}}
+\item{10}{ for function \code{METRADISC}}
 }
 
 }

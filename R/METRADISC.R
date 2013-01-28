@@ -1,5 +1,6 @@
 meta.test <- function (x, varname, stat = "t") 
 {
+if (!all(sapply(1:(length(GEDM(x))-1), function(i) all(rownames(GEDM(x)[[i]])==rownames(GEDM(x)[[i+1]]))))) stop("The gene expression data matrices have not equal rownames")
     N <- length(GEDM(x))
     #probes <- 
     tespval <- list()

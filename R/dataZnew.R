@@ -35,7 +35,7 @@ for (i in c(1:N))
 	 }
 	 
 merged<-mergeExprs2(arg, datanames(data))
-z.stat<-Zscore(merged, permute = permute)
+z.stat<-Zscore(merged, pheno=rep(1,N), permute = permute)
 class(z.stat)<-c(class(z.stat),"posterior.mean")
 return(z.stat)
 

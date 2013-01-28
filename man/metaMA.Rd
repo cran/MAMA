@@ -11,7 +11,7 @@ This is a wrapper function for effect size or p-value combination as implemented
 metaMA(data, varname, moderated = c("limma", "SMVar", "t")[1], BHth = 0.05, which = c("pval", "ES")[1])
 }
 \arguments{
-  \item{data}{MetaArray object}
+  \item{data}{MetaArray object containing gene expression data matrices, clinical data matrices and a vector of data set names. The gene expression data matrices must have equal rownames}
   \item{varname}{Character String - name of one column in clinical data matrices to be used as class labels}
   \item{moderated}{Character - method to calculate the test statistic (or p-value) inside each study, one of: "limma", "SMVar" and "t"
 }
@@ -37,7 +37,7 @@ Ivana Ihnatova
 }
 \examples{
 data(ColonData)
-pv<-metaMA(ColonData, "satelite", moderated = "t")
+pv<-metaMA(ColonData, "MSI", moderated = "t")
   }
 
 \keyword{ univar }

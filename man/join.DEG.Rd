@@ -15,7 +15,7 @@ join.DEG(..., genenames, type = NULL, cutoff)
 Outputs from different function for methods of meta-analysis of microarray
 }
   \item{genenames}{
-a character vector - names of all genes (or probe ID) included in meta-analysis = rownames of gene expression data matrix
+a character vector - names of all genes (or probe ID) included in meta-analysis. It can be \code{NULL} if the wrapper functions were used for the analysis.
 }
   \item{type}{
 a numeric vector idicating from which function the output is, \code{k}th element in \code{type} corresponds to \code{k}th element of \code{\dots}. It is not needed when wrapper functions where used.
@@ -33,8 +33,7 @@ Values below have to be used in \code{type}.
 \item{4}{for function \code{performSOGL}}
 \item{5}{for function \code{topGene}}
 \item{6}{for function \code{z.stat}}
-\item{7}{for function \code{tspcalc}}
-\item{8}{for function \code{MAP.genes}}
+\item{7}{for function \code{MAP.genes}}
 }}
 \value{
 A list in which each slot refers to one meta-analytical method and contains names of differentially expressed genes found by the method. 

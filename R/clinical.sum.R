@@ -5,7 +5,7 @@ CL<-clinical(x)
 datname<-datanames(x)
 N=length(CL)
 param<-sapply(CL,colnames)
-param<-unique(unlist(param))
+param<-sort(unique(unlist(param)))
 
   S<-function(x, par){
   res<-NA

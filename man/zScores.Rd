@@ -53,7 +53,7 @@ M. Ruschhaupt (original function), I. Ihnatova (modification)
 \examples{
 data(ColonData)
 esets <- GEDM(ColonData)
-classes <- selectClass(ColonData, "satelite", "binary")
+classes <- selectClass(ColonData, "MSI", "binary")
 theScores <- zScores(esets, classes, useREM = FALSE)
 }
 

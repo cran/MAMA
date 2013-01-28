@@ -10,7 +10,7 @@ This a wrapper function to perform all steps designed in Similarity of Ordered G
 performSOGL(data, varname, test, B, which = c("score", "empirical"), min.weight = 1e-05, two.sided = TRUE, percent = 0.95)
 }
 \arguments{
-  \item{data}{MetaArray object}
+  \item{data}{MetaArray object, the rownames in the gene expression data matrices must be equal}
   \item{varname}{A string indicating which column of clinical data matrices 
   should be used to compute test statistic. Same column is used in all datasets.}
   \item{test}{\code{"FCH"} for fold change (function \code{fold.change}) 
@@ -35,6 +35,7 @@ Object of class SOGLresult, it is a list containig:
  \item{score}{Observed similarity score}
  \item{significance}{Significance of the observed score in form of p-value}
  \item{genes}{Genes that account for observed similarity score}
+ \item{all.genes}{Names of the all genes in the analysis}
 }
 \references{
 Yang, X., Bentink, S., Scheid, S. Spang, R., Similarities of ordered gene lists, 2005
